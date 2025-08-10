@@ -9,13 +9,18 @@ function resolveImageURL(url) {
 // Coloca aquí la imagen de portada de cada marca (usar URL lh3 o archivo local)
 const BRAND_COVERS = {
   "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
-  // ...puedes agregar más marcas aquí
+  // Agrega más si quieres:
+  // "Dior": "https://lh3.googleusercontent.com/d/TU_ID",
+  // "Chanel": "./assets/brands/chanel.png",
 };
 
 /* ========= WhatsApp (config) ========= */
 const COUNTRY_CODE = '57'; // Colombia (cámbialo si aplica)
-const RAW_WA_NUMBERS = ['3006952728', '3008435173']; // tus números visibles
-const WA_NUMBERS = RAW_WA_NUMBERS.map(n => `${COUNTRY_CODE}${n.replace(/\D/g, '')}`);
+const WA_CONTACTS = [
+  { label: 'Contacta a Nicolas',  number: '3006952728' },
+  { label: 'Contacta a Carolina', number: '3008435173' },
+];
+const WA_NUMBERS = WA_CONTACTS.map(c => `${COUNTRY_CODE}${c.number.replace(/\D/g, '')}`);
 
 function waLink(num, product) {
   const msg = `Hola! Quiero consultar por ${product.brand} - ${product.name}.`;
@@ -90,11 +95,11 @@ function openModal(product) {
   // ocultar precio
   modalPrice?.classList.add('hidden');
 
-  // Botón principal = WhatsApp 1
-  modalAdd.textContent = `WhatsApp ${RAW_WA_NUMBERS[0]}`;
+  // Botón principal = WhatsApp 1 (sin mostrar número)
+  modalAdd.textContent = WA_CONTACTS[0].label;
   modalAdd.onclick = () => window.open(waLink(WA_NUMBERS[0], product), '_blank');
 
-  // Botón secundario = WhatsApp 2 (si no existe, crearlo)
+  // Botón secundario = WhatsApp 2 (crear si no existe)
   let modalAdd2 = document.getElementById('modal-add-2');
   if (!modalAdd2) {
     modalAdd2 = document.createElement('button');
@@ -102,7 +107,7 @@ function openModal(product) {
     modalAdd2.className = 'w-full mt-2 border px-4 py-2 rounded-full hover:bg-gray-50';
     modalAdd.parentNode.appendChild(modalAdd2);
   }
-  modalAdd2.textContent = `WhatsApp ${RAW_WA_NUMBERS[1]}`;
+  modalAdd2.textContent = WA_CONTACTS[1].label;
   modalAdd2.onclick = () => window.open(waLink(WA_NUMBERS[1], product), '_blank');
 
   modal.classList.remove('hidden');
@@ -222,7 +227,7 @@ function applyFilters(triggerPaginationReset = false) {
   let list = allPerfumes.filter(p => {
     const matchBrand = activeBrand ? p.brand === activeBrand : true;
     const matchText  = (p.brand + ' ' + p.name).toLowerCase().includes(term);
-    const matchPrice = p.price >= minF && p.price <= maxF; // ya no mostramos precio, pero sirve para filtrar
+    const matchPrice = p.price >= minF && p.price <= maxF; // precio no se muestra, pero sirve para filtrar
     return matchBrand && matchText && matchPrice;
   });
 
@@ -295,24 +300,30 @@ function renderPerfumes(list) {
         <h3 class="text-xl font-semibold text-gray-800 mb-1">${p.name}</h3>
         <p class="text-sm font-medium text-gray-500 mb-4">${p.brand}</p>
 
-        <!-- Botones de WhatsApp -->
+        <!-- Botones de WhatsApp (sin mostrar números) -->
         <div class="flex flex-wrap gap-2">
-          <a target="_blank"
-             href="${waLink(WA_NUMBERS[0], p)}"
-             class="px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700">
-             WhatsApp ${RAW_WA_NUMBERS[0]}
-          </a>
-          <a target="_blank"
-             href="${waLink(WA_NUMBERS[1], p)}"
-             class="px-4 py-2 rounded-full border hover:bg-gray-50">
-             WhatsApp ${RAW_WA_NUMBERS[1]}
-          </a>
+          <button type="button"
+                  class="wa1 px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700">
+            ${WA_CONTACTS[0].label}
+          </button>
+          <button type="button"
+                  class="wa2 px-4 py-2 rounded-full border hover:bg-gray-50">
+            ${WA_CONTACTS[1].label}
+          </button>
         </div>
       </div>
     `;
 
     const openBtn = card.querySelector('button[aria-label^="Abrir detalle"]');
     openBtn.addEventListener('click', () => openModal(p));
+
+    // Eventos WhatsApp (números ocultos)
+    card.querySelector('.wa1').addEventListener('click', () =>
+      window.open(waLink(WA_NUMBERS[0], p), '_blank')
+    );
+    card.querySelector('.wa2').addEventListener('click', () =>
+      window.open(waLink(WA_NUMBERS[1], p), '_blank')
+    );
 
     container.appendChild(card);
   });
@@ -360,6 +371,7 @@ async function loadData() {
 
 /* ========= Init ========= */
 document.addEventListener('DOMContentLoaded', loadData);
+
 
 
 
