@@ -1,21 +1,22 @@
 /* ========= Utilidades de imágenes ========= */
-// Convierte links de Drive compartidos a formato que sí carga en GH Pages
 function resolveImageURL(url) {
   const m = /\/d\/([^/]+)/.exec(url);
   return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : url;
 }
 
+/* ========= Branding del sitio ========= */
+const SITE_TITLE = 'Aromanía'; // cámbialo por el nombre que elijas
+
 /* ========= Portadas por marca (opcional) ========= */
-// Coloca aquí la imagen de portada de cada marca (usar URL lh3 o archivo local)
 const BRAND_COVERS = {
   "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
-  // Agrega más si quieres:
+  // Agrega más marcas si quieres:
   // "Dior": "https://lh3.googleusercontent.com/d/TU_ID",
   // "Chanel": "./assets/brands/chanel.png",
 };
 
 /* ========= WhatsApp (config) ========= */
-const COUNTRY_CODE = '57'; // Colombia (cámbialo si aplica)
+const COUNTRY_CODE = '57'; // Colombia
 const WA_CONTACTS = [
   { label: 'Contacta a Nicolas',  number: '3006952728' },
   { label: 'Contacta a Carolina', number: '3008435173' },
@@ -31,16 +32,18 @@ function waLink(num, product) {
 let allPerfumes = [];
 let currentPage = 1;
 const pageSize = 12;
-let activeBrand = ""; // "" = landing (todas las marcas)
+let activeBrand = ""; // "" = landing (todas)
 
 /* ========= Selectores ========= */
-const brandsView  = document.getElementById('brands-view');   // grid de marcas
-const filtersBar  = document.getElementById('filters-bar');   // barra de filtros/orden
-const brandHeader = document.getElementById('brand-header');  // header con "volver" y título
+const siteTitleEl = document.getElementById('site-title');
+
+const brandsView  = document.getElementById('brands-view');
+const filtersBar  = document.getElementById('filters-bar');
+const brandHeader = document.getElementById('brand-header');
 const backBtn     = document.getElementById('back-to-brands');
 const brandTitle  = document.getElementById('brand-title');
 
-const container = document.getElementById('perfume-container'); // grid de productos
+const container = document.getElementById('perfume-container');
 const skeleton  = document.getElementById('skeleton');
 
 const q    = document.getElementById('q');
@@ -53,6 +56,19 @@ const prevBtn    = document.getElementById('prev');
 const nextBtn    = document.getElementById('next');
 const pageInfo   = document.getElementById('page-info');
 
+/* ========= Header nav ========= */
+const navBrands   = document.getElementById('nav-brands');
+const navCatalog  = document.getElementById('nav-catalog');
+const navContact  = document.getElementById('nav-contact');
+const hamburger   = document.getElementById('hamburger');
+const mobileMenu  = document.getElementById('mobile-menu');
+const mNavBrands  = document.getElementById('m-nav-brands');
+const mNavCatalog = document.getElementById('m-nav-catalog');
+const mNavContact = document.getElementById('m-nav-contact');
+
+const brandsDD        = document.getElementById('brands-dd');
+const brandsDDContent = document.getElementById('brands-dd-content');
+
 /* ========= Modal ========= */
 const modal      = document.getElementById('modal');
 const modalClose = document.getElementById('modal-close');
@@ -60,15 +76,16 @@ const modalTitle = document.getElementById('modal-title');
 const modalImg   = document.getElementById('modal-img');
 const modalBrand = document.getElementById('modal-brand');
 const modalDesc  = document.getElementById('modal-desc');
-const modalPrice = document.getElementById('modal-price'); // lo ocultamos
+const modalPrice = document.getElementById('modal-price'); // oculto
 const modalAdd   = document.getElementById('modal-add');
 
 /* ========= Carrito (oculto) ========= */
 const CART_KEY  = 'perfume_cart';
 const cartBtn   = document.getElementById('cart-btn');
 const cartCount = document.getElementById('cart-count');
-cartBtn?.classList.add('hidden'); // ocultar botón flotante
+cartBtn?.classList.add('hidden');
 
+/* ========= Helpers ========= */
 function getCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
   catch { return []; }
@@ -92,14 +109,11 @@ function openModal(product) {
   modalBrand.textContent = product.brand;
   modalDesc.textContent  = product.description;
 
-  // ocultar precio
   modalPrice?.classList.add('hidden');
 
-  // Botón principal = WhatsApp 1 (sin mostrar número)
   modalAdd.textContent = WA_CONTACTS[0].label;
   modalAdd.onclick = () => window.open(waLink(WA_NUMBERS[0], product), '_blank');
 
-  // Botón secundario = WhatsApp 2 (crear si no existe)
   let modalAdd2 = document.getElementById('modal-add-2');
   if (!modalAdd2) {
     modalAdd2 = document.createElement('button');
@@ -117,9 +131,8 @@ function closeModal() { modal.classList.add('hidden'); modal.classList.remove('f
 modalClose && modalClose.addEventListener('click', closeModal);
 modal && modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-/* ========= Landing de MARCAS ========= */
+/* ========= Marcas (landing y dropdown) ========= */
 function getBrandsData() {
-  // { name, count, image } usando la 1ª imagen disponible de esa marca
   const map = new Map();
   for (const p of allPerfumes) {
     const key = p.brand;
@@ -145,12 +158,9 @@ function renderBrands() {
   brands.forEach(b => {
     const card = document.createElement('button');
     card.className = 'bg-white rounded-2xl shadow hover:shadow-lg transition p-4 text-left';
-
-    // Usa portada fija si existe, si no la 1ª imagen de la marca
     const coverSrc = BRAND_COVERS[b.name] || b.image || '';
     const imgSrc   = resolveImageURL(coverSrc);
     const fallback = `https://placehold.co/600x300?text=${encodeURIComponent(b.name)}`;
-
     card.innerHTML = `
       <div class="w-full h-40 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center mb-3">
         <img src="${imgSrc || fallback}" alt="${b.name}"
@@ -167,6 +177,39 @@ function renderBrands() {
   });
 }
 
+function renderBrandsDropdown() {
+  if (!brandsDDContent) return;
+  brandsDDContent.innerHTML = '';
+  const brands = getBrandsData();
+  // Botón "Todas"
+  const allBtn = document.createElement('button');
+  allBtn.className = 'px-3 py-2 rounded-full border hover:bg-gray-50';
+  allBtn.textContent = 'Todas las marcas';
+  allBtn.onclick = () => { hideBrandsDD(); showBrandsView(); };
+  brandsDDContent.appendChild(allBtn);
+
+  brands.forEach(b => {
+    const btn = document.createElement('button');
+    btn.className = 'px-3 py-2 rounded-full bg-white border hover:bg-gray-50';
+    btn.textContent = `${b.name} (${b.count})`;
+    btn.onclick = () => { hideBrandsDD(); goToBrand(b.name); };
+    brandsDDContent.appendChild(btn);
+  });
+}
+
+function toggleBrandsDD() {
+  if (!brandsDD) return;
+  const isHidden = brandsDD.classList.contains('hidden');
+  if (isHidden) {
+    renderBrandsDropdown();
+    brandsDD.classList.remove('hidden');
+  } else {
+    brandsDD.classList.add('hidden');
+  }
+}
+function hideBrandsDD() { brandsDD?.classList.add('hidden'); }
+
+/* ========= Vistas ========= */
 function showBrandsView() {
   activeBrand = "";
   brandsView && brandsView.classList.remove('hidden');
@@ -174,7 +217,8 @@ function showBrandsView() {
   brandHeader && brandHeader.classList.add('hidden');
   container && container.classList.add('hidden');
   pagination && pagination.classList.add('hidden');
-  history.replaceState({}, '', location.pathname); // limpiar querystring
+  hideBrandsDD();
+  history.replaceState({}, '', location.pathname);
 }
 
 function showCatalogView() {
@@ -227,7 +271,7 @@ function applyFilters(triggerPaginationReset = false) {
   let list = allPerfumes.filter(p => {
     const matchBrand = activeBrand ? p.brand === activeBrand : true;
     const matchText  = (p.brand + ' ' + p.name).toLowerCase().includes(term);
-    const matchPrice = p.price >= minF && p.price <= maxF; // precio no se muestra, pero sirve para filtrar
+    const matchPrice = p.price >= minF && p.price <= maxF;
     return matchBrand && matchText && matchPrice;
   });
 
@@ -237,7 +281,6 @@ function applyFilters(triggerPaginationReset = false) {
     case 'name-asc':   list.sort((a,b) => a.name.localeCompare(b.name)); break;
   }
 
-  // Título de marca (con cantidad)
   if (brandTitle) {
     const count = list.length;
     brandTitle.textContent = activeBrand ? `${activeBrand} · ${count}` : '';
@@ -258,7 +301,6 @@ function renderPerfumes(list) {
   container.innerHTML = '';
   skeleton?.classList.add('hidden');
 
-  // Paginación
   const total = list.length;
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
   currentPage = Math.min(currentPage, totalPages);
@@ -299,8 +341,6 @@ function renderPerfumes(list) {
       <div class="p-6">
         <h3 class="text-xl font-semibold text-gray-800 mb-1">${p.name}</h3>
         <p class="text-sm font-medium text-gray-500 mb-4">${p.brand}</p>
-
-        <!-- Botones de WhatsApp (sin mostrar números) -->
         <div class="flex flex-wrap gap-2">
           <button type="button"
                   class="wa1 px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700">
@@ -317,7 +357,6 @@ function renderPerfumes(list) {
     const openBtn = card.querySelector('button[aria-label^="Abrir detalle"]');
     openBtn.addEventListener('click', () => openModal(p));
 
-    // Eventos WhatsApp (números ocultos)
     card.querySelector('.wa1').addEventListener('click', () =>
       window.open(waLink(WA_NUMBERS[0], p), '_blank')
     );
@@ -345,6 +384,29 @@ nextBtn && nextBtn.addEventListener('click', () => { currentPage++; applyFilters
 // Volver a marcas
 backBtn && backBtn.addEventListener('click', showBrandsView);
 
+// Header: acciones
+siteTitleEl && (siteTitleEl.textContent = SITE_TITLE);
+
+function closeMobileMenu() { mobileMenu?.classList.add('hidden'); }
+function toggleMobileMenu() { mobileMenu?.classList.toggle('hidden'); hideBrandsDD(); }
+hamburger && hamburger.addEventListener('click', toggleMobileMenu);
+
+navBrands && navBrands.addEventListener('click', (e) => { e.preventDefault(); toggleBrandsDD(); });
+navCatalog && navCatalog.addEventListener('click', (e) => { e.preventDefault(); hideBrandsDD(); activeBrand=''; showCatalogView(); applyFilters(true); });
+navContact && navContact.addEventListener('click', (e) => { e.preventDefault(); hideBrandsDD(); window.open(`https://wa.me/${WA_NUMBERS[0]}`, '_blank'); });
+
+mNavBrands && mNavBrands.addEventListener('click', () => { closeMobileMenu(); showBrandsView(); });
+mNavCatalog && mNavCatalog.addEventListener('click', () => { closeMobileMenu(); activeBrand=''; showCatalogView(); applyFilters(true); });
+mNavContact && mNavContact.addEventListener('click', () => { closeMobileMenu(); window.open(`https://wa.me/${WA_NUMBERS[0]}`, '_blank'); });
+
+// Cerrar dropdown si haces click fuera o al scrollear
+document.addEventListener('click', (e) => {
+  if (!brandsDD || !navBrands) return;
+  const inside = brandsDD.contains(e.target) || navBrands.contains(e.target);
+  if (!inside) hideBrandsDD();
+});
+window.addEventListener('scroll', hideBrandsDD);
+
 /* ========= Carga de datos ========= */
 async function loadData() {
   try {
@@ -359,13 +421,13 @@ async function loadData() {
   }
   updateCartCount();
   loadFromURL();
-  renderBrands();
-  if (activeBrand) { // si llega con ?brand=...
+  renderBrands();        // landing
+  if (activeBrand) {
     brandTitle && (brandTitle.textContent = activeBrand);
     showCatalogView();
     applyFilters();
   } else {
-    showBrandsView(); // landing por defecto
+    showBrandsView();
   }
 }
 

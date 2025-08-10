@@ -27,10 +27,47 @@
 </head>
 <body class="p-4 sm:p-8">
   <!-- Header -->
-  <header class="text-center mb-8">
-    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">Catálogo de Perfumes</h1>
-    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explora nuestra exclusiva colección de fragancias. Encuentra el aroma perfecto para cada ocasión.</p>
-  </header>
+<header class="sticky top-0 z-50 bg-white/70 backdrop-blur border-b">
+  <div class="max-w-7xl mx-auto flex items-center justify-between py-3 px-2 sm:px-4">
+    <a href="#" class="flex items-center gap-2" onclick="showBrandsView(); return false;">
+      <span class="text-2xl">💐</span>
+      <span id="site-title" class="text-xl sm:text-2xl font-bold tracking-tight">Aromanía</span>
+    </a>
+
+    <!-- Nav desktop -->
+    <nav class="hidden md:flex items-center gap-1">
+      <button id="nav-brands"
+              class="px-3 py-2 rounded-full hover:bg-gray-100">
+        Marcas
+      </button>
+      <button id="nav-catalog"
+              class="px-3 py-2 rounded-full hover:bg-gray-100">
+        Catálogo
+      </button>
+      <button id="nav-contact"
+              class="px-3 py-2 rounded-full bg-green-600 text-white hover:bg-green-700">
+        WhatsApp
+      </button>
+    </nav>
+
+    <!-- Botón mobile -->
+    <button id="hamburger" class="md:hidden p-2 rounded hover:bg-gray-100" aria-label="Abrir menú">☰</button>
+  </div>
+
+  <!-- Dropdown de marcas (desktop) -->
+  <div id="brands-dd" class="hidden md:block border-t bg-white shadow-sm">
+    <div id="brands-dd-content" class="max-w-7xl mx-auto p-4 flex gap-2 flex-wrap"></div>
+  </div>
+
+  <!-- Menú mobile -->
+  <div id="mobile-menu" class="md:hidden hidden border-t bg-white">
+    <div class="p-3 flex flex-col gap-2">
+      <button id="m-nav-brands" class="text-left px-3 py-2 rounded hover:bg-gray-50">Marcas</button>
+      <button id="m-nav-catalog" class="text-left px-3 py-2 rounded hover:bg-gray-50">Catálogo</button>
+      <button id="m-nav-contact" class="text-left px-3 py-2 rounded hover:bg-gray-50">Contacto (WhatsApp)</button>
+    </div>
+  </div>
+</header>
 
   <!-- Vista de MARCAS (landing) -->
   <section id="brands-view" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8"></section>
