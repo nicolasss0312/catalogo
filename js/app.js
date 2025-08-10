@@ -9,10 +9,16 @@ function resolveImageURL(url) {
 let allPerfumes = [];
 let currentPage = 1;
 const pageSize = 12;
-let activeBrand = ""; // marca seleccionada ("": todas)
+let activeBrand = ""; // "" = landing (todas las marcas)
 
 /* ========= Selectores ========= */
-const container = document.getElementById('perfume-container');
+const brandsView  = document.getElementById('brands-view');   // grid de marcas (landing)
+const filtersBar  = document.getElementById('filters-bar');   // barra de filtros/orden
+const brandHeader = document.getElementById('brand-header');  // header con "volver" y título
+const backBtn     = document.getElementById('back-to-brands');
+const brandTitle  = document.getElementById('brand-title');
+
+const container = document.getElementById('perfume-container'); // grid de productos
 const skeleton  = document.getElementById('skeleton');
 
 const q    = document.getElementById('q');
@@ -24,8 +30,6 @@ const pagination = document.getElementById('pagination');
 const prevBtn    = document.getElementById('prev');
 const nextBtn    = document.getElementById('next');
 const pageInfo   = document.getElementById('page-info');
-
-const brandMenu = document.getElementById('brand-menu'); // <nav id="brand-menu"></nav>
 
 /* ========= Modal ========= */
 const modal      = document.getElementById('modal');
@@ -51,7 +55,7 @@ function saveCart(cart) {
   updateCartCount();
 }
 function updateCartCount() {
-  cartCount.textContent = getCart().reduce((acc, it) => acc + (it.qty || 1), 0);
+  cartCount && (cartCount.textContent = getCart().reduce((acc, it) => acc + (it.qty || 1), 0));
 }
 function addToCart(id) {
   const cart = getCart();
@@ -61,16 +65,16 @@ function addToCart(id) {
   saveCart(cart);
 }
 
-/* ========= Formateo de precios ========= */
+/* ========= Precios ========= */
 const fmtPrice = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
 
-/* ========= Modal helpers ========= */
+/* ========= Modal ========= */
 function openModal(product) {
   modalTitle.textContent = product.name;
   modalImg.src = resolveImageURL(product.image);
   modalImg.alt = `Perfume ${product.name}`;
-  // si en tu index.html dejaste object-cover, puedes cambiarlo por CSS:
-  // #modal-img { object-fit: contain; }
+  modalImg.classList.remove('object-cover');
+  modalImg.classList.add('object-contain');
   modalBrand.textContent = product.brand;
   modalDesc.textContent = product.description;
   modalPrice.textContent = fmtPrice.format(product.price);
@@ -78,40 +82,79 @@ function openModal(product) {
   modal.classList.remove('hidden');
   modal.classList.add('flex');
 }
-function closeModal() {
-  modal.classList.add('hidden');
-  modal.classList.remove('flex');
-}
-if (modalClose) modalClose.addEventListener('click', closeModal);
-if (modal) modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+function closeModal() { modal.classList.add('hidden'); modal.classList.remove('flex'); }
+modalClose && modalClose.addEventListener('click', closeModal);
+modal && modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-/* ========= Menú de marcas ========= */
-function getBrands() {
-  return Array.from(new Set(allPerfumes.map(p => p.brand))).sort((a,b)=>a.localeCompare(b));
+/* ========= Landing de MARCAS ========= */
+function getBrandsData() {
+  // { name, count, image } usando la 1ª imagen disponible de esa marca
+  const map = new Map();
+  for (const p of allPerfumes) {
+    const key = p.brand;
+    if (!map.has(key)) {
+      map.set(key, { name: key, count: 1, image: p.image });
+    } else {
+      const obj = map.get(key);
+      obj.count += 1;
+      // si por alguna razón no hay image aún y este producto sí, usarla
+      if (!obj.image && p.image) obj.image = p.image;
+    }
+  }
+  return Array.from(map.values()).sort((a,b) => a.name.localeCompare(b.name));
 }
-function makeBrandBtn(label, value) {
-  const btn = document.createElement('button');
-  const isActive = value === activeBrand;
-  btn.className = [
-    "px-4 py-2 rounded-full border text-sm transition",
-    isActive ? "bg-indigo-600 text-white border-indigo-600"
-             : "bg-white text-gray-700 hover:bg-gray-50"
-  ].join(" ");
-  btn.textContent = label;
-  btn.setAttribute("data-brand", value);
-  btn.addEventListener("click", () => {
-    activeBrand = value;
-    currentPage = 1;
-    renderBrandMenu();
-    applyFilters(true);
+
+function renderBrands() {
+  if (!brandsView) return;
+  brandsView.innerHTML = '';
+  const brands = getBrandsData();
+  if (brands.length === 0) {
+    brandsView.innerHTML = `<p class="text-center text-gray-500 col-span-full">Aún no hay marcas para mostrar.</p>`;
+    return;
+  }
+  brands.forEach(b => {
+    const card = document.createElement('button');
+    card.className = 'bg-white rounded-2xl shadow hover:shadow-lg transition p-4 text-left';
+    card.innerHTML = `
+      <div class="w-full h-40 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center mb-3">
+        <img src="${resolveImageURL(b.image)}" alt="${b.name}" class="max-h-full max-w-full object-contain" />
+      </div>
+      <div class="flex items-center justify-between">
+        <h3 class="text-lg font-semibold text-gray-800">${b.name}</h3>
+        <span class="text-xs px-2 py-1 rounded-full bg-gray-100 text-gray-600">${b.count}</span>
+      </div>
+    `;
+    card.addEventListener('click', () => goToBrand(b.name));
+    brandsView.appendChild(card);
   });
-  return btn;
 }
-function renderBrandMenu() {
-  if (!brandMenu) return; // por si no agregaste el <nav id="brand-menu">
-  brandMenu.innerHTML = "";
-  brandMenu.appendChild(makeBrandBtn("Todas", ""));
-  getBrands().forEach(b => brandMenu.appendChild(makeBrandBtn(b, b)));
+
+function showBrandsView() {
+  activeBrand = "";
+  // Ocultar catálogo / filtros / paginación; mostrar landing
+  brandsView && brandsView.classList.remove('hidden');
+  filtersBar && filtersBar.classList.add('hidden');
+  brandHeader && brandHeader.classList.add('hidden');
+  container && container.classList.add('hidden');
+  pagination && pagination.classList.add('hidden');
+  // limpiar querystring
+  history.replaceState({}, '', location.pathname);
+}
+
+function showCatalogView() {
+  brandsView && brandsView.classList.add('hidden');
+  filtersBar && filtersBar.classList.remove('hidden');
+  brandHeader && brandHeader.classList.remove('hidden');
+  container && container.classList.remove('hidden');
+  // paginación se maneja dentro de renderPerfumes
+}
+
+function goToBrand(brand) {
+  activeBrand = brand;
+  currentPage = 1;
+  brandTitle && (brandTitle.textContent = brand);
+  showCatalogView();
+  applyFilters(true);
 }
 
 /* ========= URL Sync ========= */
@@ -128,21 +171,21 @@ function syncURL(term, minP, maxP, sortVal, page) {
 }
 function loadFromURL() {
   const u = new URLSearchParams(location.search);
-  q && (q.value = u.get('q') || '');
-  min && (min.value = u.get('min') || '');
-  max && (max.value = u.get('max') || '');
-  sort && (sort.value = u.get('sort') || '');
+  q   && (q.value   = u.get('q')    || '');
+  min && (min.value = u.get('min')  || '');
+  max && (max.value = u.get('max')  || '');
+  sort&& (sort.value= u.get('sort') || '');
   activeBrand = u.get('brand') || '';
   currentPage = parseInt(u.get('page') || '1', 10) || 1;
 }
 
 /* ========= Filtros + Orden ========= */
 function applyFilters(triggerPaginationReset = false) {
-  const term  = (q?.value || '').toLowerCase();
-  const minP  = parseFloat(min?.value);
-  const maxP  = parseFloat(max?.value);
-  const minF  = isNaN(minP) ? 0 : minP;
-  const maxF  = isNaN(maxP) ? Infinity : maxP;
+  const term = (q?.value || '').toLowerCase();
+  const minP = parseFloat(min?.value);
+  const maxP = parseFloat(max?.value);
+  const minF = isNaN(minP) ? 0 : minP;
+  const maxF = isNaN(maxP) ? Infinity : maxP;
 
   if (triggerPaginationReset) currentPage = 1;
 
@@ -157,6 +200,12 @@ function applyFilters(triggerPaginationReset = false) {
     case 'price-asc':  list.sort((a,b) => a.price - b.price); break;
     case 'price-desc': list.sort((a,b) => b.price - a.price); break;
     case 'name-asc':   list.sort((a,b) => a.name.localeCompare(b.name)); break;
+  }
+
+  // Actualiza título de marca (con cantidad)
+  if (brandTitle) {
+    const count = list.length;
+    brandTitle.textContent = activeBrand ? `${activeBrand} · ${count}` : '';
   }
 
   renderPerfumes(list);
@@ -180,7 +229,6 @@ function renderPerfumes(list) {
   currentPage = Math.min(currentPage, totalPages);
   const pageItems = paginate(list, currentPage, pageSize);
 
-  // Mostrar/ocultar paginación
   if (pagination) {
     if (total > pageSize) {
       pagination.classList.remove('hidden');
@@ -197,14 +245,12 @@ function renderPerfumes(list) {
     return;
   }
 
-  // Tarjetas
   pageItems.forEach(p => {
     const card = document.createElement('article');
     card.className = 'card bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300';
 
     card.innerHTML = `
       <button class="relative w-full group" aria-label="Abrir detalle de ${p.name}">
-        <!-- Alto fijo: la tarjeta NO cambia de tamaño -->
         <div class="w-full h-64 bg-white overflow-hidden flex items-center justify-center">
           <img
             loading="lazy"
@@ -226,7 +272,6 @@ function renderPerfumes(list) {
       </div>
     `;
 
-    // Eventos: abrir modal + agregar carrito
     const openBtn = card.querySelector('button[aria-label^="Abrir detalle"]');
     openBtn.addEventListener('click', () => openModal(p));
     card.querySelector('.add-btn').addEventListener('click', () => addToCart(p.id));
@@ -246,11 +291,12 @@ let debounceId;
   });
 });
 // Paginación
-prevBtn?.addEventListener('click', () => { if (currentPage > 1) { currentPage--; applyFilters(); } });
-nextBtn?.addEventListener('click', () => { currentPage++; applyFilters(); });
-
+prevBtn && prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; applyFilters(); } });
+nextBtn && nextBtn.addEventListener('click', () => { currentPage++; applyFilters(); });
+// Volver a marcas
+backBtn && backBtn.addEventListener('click', showBrandsView);
 // Carrito demo
-cartBtn?.addEventListener('click', () => {
+cartBtn && cartBtn.addEventListener('click', () => {
   const cart = getCart();
   if (!cart.length) { alert('Tu carrito está vacío'); return; }
   const lines = cart.map(item => {
@@ -274,9 +320,16 @@ async function loadData() {
   }
   updateCartCount();
   loadFromURL();
-  renderBrandMenu();   // pinta el menú de marcas
-  applyFilters();
+  renderBrands();
+  if (activeBrand) { // si llega con ?brand=...
+    brandTitle && (brandTitle.textContent = activeBrand);
+    showCatalogView();
+    applyFilters();
+  } else {
+    showBrandsView(); // landing por defecto
+  }
 }
 
 /* ========= Init ========= */
 document.addEventListener('DOMContentLoaded', loadData);
+
