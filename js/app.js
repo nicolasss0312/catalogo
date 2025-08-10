@@ -5,6 +5,16 @@ function resolveImageURL(url) {
   return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : url;
 }
 
+/* ========= WhatsApp (config) ========= */
+const COUNTRY_CODE = '57'; // Colombia
+const RAW_WA_NUMBERS = ['3006952728', '3008435173']; // tus números visibles
+const WA_NUMBERS = RAW_WA_NUMBERS.map(n => `${COUNTRY_CODE}${n.replace(/\D/g, '')}`);
+
+function waLink(num, product) {
+  const msg = `Hola! Quiero consultar por ${product.brand} - ${product.name}.`;
+  return `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
+}
+
 /* ========= Estado global ========= */
 let allPerfumes = [];
 let currentPage = 1;
@@ -12,7 +22,7 @@ const pageSize = 12;
 let activeBrand = ""; // "" = landing (todas las marcas)
 
 /* ========= Selectores ========= */
-const brandsView  = document.getElementById('brands-view');   // grid de marcas (landing)
+const brandsView  = document.getElementById('brands-view');   // grid de marcas
 const filtersBar  = document.getElementById('filters-bar');   // barra de filtros/orden
 const brandHeader = document.getElementById('brand-header');  // header con "volver" y título
 const backBtn     = document.getElementById('back-to-brands');
@@ -38,13 +48,14 @@ const modalTitle = document.getElementById('modal-title');
 const modalImg   = document.getElementById('modal-img');
 const modalBrand = document.getElementById('modal-brand');
 const modalDesc  = document.getElementById('modal-desc');
-const modalPrice = document.getElementById('modal-price');
+const modalPrice = document.getElementById('modal-price'); // lo ocultamos
 const modalAdd   = document.getElementById('modal-add');
 
-/* ========= Carrito (simple) ========= */
+/* ========= Carrito (oculto) ========= */
 const CART_KEY  = 'perfume_cart';
 const cartBtn   = document.getElementById('cart-btn');
 const cartCount = document.getElementById('cart-count');
+cartBtn?.classList.add('hidden'); // ocultar botón flotante
 
 function getCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
@@ -57,16 +68,6 @@ function saveCart(cart) {
 function updateCartCount() {
   cartCount && (cartCount.textContent = getCart().reduce((acc, it) => acc + (it.qty || 1), 0));
 }
-function addToCart(id) {
-  const cart = getCart();
-  const found = cart.find(x => x.id === id);
-  if (found) found.qty = (found.qty || 1) + 1;
-  else cart.push({ id, qty: 1, addedAt: Date.now() });
-  saveCart(cart);
-}
-
-/* ========= Precios ========= */
-const fmtPrice = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
 
 /* ========= Modal ========= */
 function openModal(product) {
@@ -75,10 +76,28 @@ function openModal(product) {
   modalImg.alt = `Perfume ${product.name}`;
   modalImg.classList.remove('object-cover');
   modalImg.classList.add('object-contain');
+
   modalBrand.textContent = product.brand;
-  modalDesc.textContent = product.description;
-  modalPrice.textContent = fmtPrice.format(product.price);
-  modalAdd.onclick = () => addToCart(product.id);
+  modalDesc.textContent  = product.description;
+
+  // ocultar precio
+  modalPrice?.classList.add('hidden');
+
+  // Botón principal = WhatsApp 1
+  modalAdd.textContent = `WhatsApp ${RAW_WA_NUMBERS[0]}`;
+  modalAdd.onclick = () => window.open(waLink(WA_NUMBERS[0], product), '_blank');
+
+  // Botón secundario = WhatsApp 2 (si no existe, crearlo)
+  let modalAdd2 = document.getElementById('modal-add-2');
+  if (!modalAdd2) {
+    modalAdd2 = document.createElement('button');
+    modalAdd2.id = 'modal-add-2';
+    modalAdd2.className = 'w-full mt-2 border px-4 py-2 rounded-full hover:bg-gray-50';
+    modalAdd.parentNode.appendChild(modalAdd2);
+  }
+  modalAdd2.textContent = `WhatsApp ${RAW_WA_NUMBERS[1]}`;
+  modalAdd2.onclick = () => window.open(waLink(WA_NUMBERS[1], product), '_blank');
+
   modal.classList.remove('hidden');
   modal.classList.add('flex');
 }
@@ -97,7 +116,6 @@ function getBrandsData() {
     } else {
       const obj = map.get(key);
       obj.count += 1;
-      // si por alguna razón no hay image aún y este producto sí, usarla
       if (!obj.image && p.image) obj.image = p.image;
     }
   }
@@ -115,9 +133,11 @@ function renderBrands() {
   brands.forEach(b => {
     const card = document.createElement('button');
     card.className = 'bg-white rounded-2xl shadow hover:shadow-lg transition p-4 text-left';
+    const imgSrc = resolveImageURL(b.image || '');
+    const fallback = `https://placehold.co/600x300?text=${encodeURIComponent(b.name)}`;
     card.innerHTML = `
       <div class="w-full h-40 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center mb-3">
-        <img src="${resolveImageURL(b.image)}" alt="${b.name}" class="max-h-full max-w-full object-contain" />
+        <img src="${imgSrc || fallback}" alt="${b.name}" class="max-h-full max-w-full object-contain" onerror="this.src='${fallback}'" />
       </div>
       <div class="flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-800">${b.name}</h3>
@@ -131,14 +151,12 @@ function renderBrands() {
 
 function showBrandsView() {
   activeBrand = "";
-  // Ocultar catálogo / filtros / paginación; mostrar landing
   brandsView && brandsView.classList.remove('hidden');
   filtersBar && filtersBar.classList.add('hidden');
   brandHeader && brandHeader.classList.add('hidden');
   container && container.classList.add('hidden');
   pagination && pagination.classList.add('hidden');
-  // limpiar querystring
-  history.replaceState({}, '', location.pathname);
+  history.replaceState({}, '', location.pathname); // limpiar querystring
 }
 
 function showCatalogView() {
@@ -146,7 +164,6 @@ function showCatalogView() {
   filtersBar && filtersBar.classList.remove('hidden');
   brandHeader && brandHeader.classList.remove('hidden');
   container && container.classList.remove('hidden');
-  // paginación se maneja dentro de renderPerfumes
 }
 
 function goToBrand(brand) {
@@ -202,7 +219,7 @@ function applyFilters(triggerPaginationReset = false) {
     case 'name-asc':   list.sort((a,b) => a.name.localeCompare(b.name)); break;
   }
 
-  // Actualiza título de marca (con cantidad)
+  // Título de marca (con cantidad)
   if (brandTitle) {
     const count = list.length;
     brandTitle.textContent = activeBrand ? `${activeBrand} · ${count}` : '';
@@ -263,18 +280,26 @@ function renderPerfumes(list) {
       </button>
       <div class="p-6">
         <h3 class="text-xl font-semibold text-gray-800 mb-1">${p.name}</h3>
-        <p class="text-sm font-medium text-gray-500 mb-2">${p.brand}</p>
-        <p class="text-sm text-gray-600 mb-4 line-clamp-3">${p.description}</p>
-        <div class="flex justify-between items-center">
-          <span class="text-2xl font-bold text-gray-900">${fmtPrice.format(p.price)}</span>
-          <button class="bg-indigo-600 text-white px-4 py-2 rounded-full font-medium hover:bg-indigo-700 add-btn">Agregar</button>
+        <p class="text-sm font-medium text-gray-500 mb-4">${p.brand}</p>
+
+        <!-- Botones de WhatsApp -->
+        <div class="flex flex-wrap gap-2">
+          <a target="_blank"
+             href="${waLink(WA_NUMBERS[0], p)}"
+             class="px-4 py-2 rounded-full bg-green-600 text-white hover:bg-green-700">
+             WhatsApp ${RAW_WA_NUMBERS[0]}
+          </a>
+          <a target="_blank"
+             href="${waLink(WA_NUMBERS[1], p)}"
+             class="px-4 py-2 rounded-full border hover:bg-gray-50">
+             WhatsApp ${RAW_WA_NUMBERS[1]}
+          </a>
         </div>
       </div>
     `;
 
     const openBtn = card.querySelector('button[aria-label^="Abrir detalle"]');
     openBtn.addEventListener('click', () => openModal(p));
-    card.querySelector('.add-btn').addEventListener('click', () => addToCart(p.id));
 
     container.appendChild(card);
   });
@@ -295,16 +320,6 @@ prevBtn && prevBtn.addEventListener('click', () => { if (currentPage > 1) { curr
 nextBtn && nextBtn.addEventListener('click', () => { currentPage++; applyFilters(); });
 // Volver a marcas
 backBtn && backBtn.addEventListener('click', showBrandsView);
-// Carrito demo
-cartBtn && cartBtn.addEventListener('click', () => {
-  const cart = getCart();
-  if (!cart.length) { alert('Tu carrito está vacío'); return; }
-  const lines = cart.map(item => {
-    const p = allPerfumes.find(x => x.id === item.id);
-    return `• ${p ? p.name : item.id} x${item.qty}`;
-  });
-  alert('Carrito:\n' + lines.join('\n'));
-});
 
 /* ========= Carga de datos ========= */
 async function loadData() {
@@ -332,4 +347,5 @@ async function loadData() {
 
 /* ========= Init ========= */
 document.addEventListener('DOMContentLoaded', loadData);
+
 
