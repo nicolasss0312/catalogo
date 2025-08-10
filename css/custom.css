@@ -9,3 +9,14 @@ html { scroll-behavior: smooth; }
 
 /***** Utilidades *****/
 .card:hover { transform: translateY(-2px); transition: transform 200ms ease; }
+
+/* Forzar que la imagen de la tarjeta quepa completa */
+.card button img {
+  object-fit: contain !important;  /* sobreescribe el object-cover de Tailwind */
+  height: 16rem;                   /* igual a h-64 de tus cards */
+  width: 100%;
+}
+
+/* (Opcional) si la quieres un poco más bajita: */
+/* .card button img { height: 14rem; }  -> equivalente a h-56 */
+/* .card button img { height: 12rem; }  -> equivalente a h-48 */
