@@ -5,8 +5,17 @@ function resolveImageURL(url) {
   return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : url;
 }
 
+/* ========= Portadas por marca (opcional) ========= */
+// Coloca aquí la imagen de portada de cada marca (usar URL lh3 o archivo local)
+const BRAND_COVERS = {
+  // Ejemplo:
+  // "Carolina Herrera": "https://lh3.googleusercontent.com/d/TU_ID_DE_DRIVE",
+  // "Dior": "./assets/brands/dior.png",
+  // "Chanel": "https://lh3.googleusercontent.com/d/OTRO_ID",
+};
+
 /* ========= WhatsApp (config) ========= */
-const COUNTRY_CODE = '57'; // Colombia
+const COUNTRY_CODE = '57'; // Colombia (cámbialo si aplica)
 const RAW_WA_NUMBERS = ['3006952728', '3008435173']; // tus números visibles
 const WA_NUMBERS = RAW_WA_NUMBERS.map(n => `${COUNTRY_CODE}${n.replace(/\D/g, '')}`);
 
@@ -133,11 +142,17 @@ function renderBrands() {
   brands.forEach(b => {
     const card = document.createElement('button');
     card.className = 'bg-white rounded-2xl shadow hover:shadow-lg transition p-4 text-left';
-    const imgSrc = resolveImageURL(b.image || '');
+
+    // Usa portada fija si existe, si no la 1ª imagen de la marca
+    const coverSrc = BRAND_COVERS[b.name] || b.image || '';
+    const imgSrc   = resolveImageURL(coverSrc);
     const fallback = `https://placehold.co/600x300?text=${encodeURIComponent(b.name)}`;
+
     card.innerHTML = `
       <div class="w-full h-40 bg-gray-50 rounded-xl overflow-hidden flex items-center justify-center mb-3">
-        <img src="${imgSrc || fallback}" alt="${b.name}" class="max-h-full max-w-full object-contain" onerror="this.src='${fallback}'" />
+        <img src="${imgSrc || fallback}" alt="${b.name}"
+             class="max-h-full max-w-full object-contain"
+             onerror="this.src='${fallback}'" />
       </div>
       <div class="flex items-center justify-between">
         <h3 class="text-lg font-semibold text-gray-800">${b.name}</h3>
@@ -209,7 +224,7 @@ function applyFilters(triggerPaginationReset = false) {
   let list = allPerfumes.filter(p => {
     const matchBrand = activeBrand ? p.brand === activeBrand : true;
     const matchText  = (p.brand + ' ' + p.name).toLowerCase().includes(term);
-    const matchPrice = p.price >= minF && p.price <= maxF;
+    const matchPrice = p.price >= minF && p.price <= maxF; // ya no mostramos precio, pero sirve para filtrar
     return matchBrand && matchText && matchPrice;
   });
 
@@ -347,5 +362,6 @@ async function loadData() {
 
 /* ========= Init ========= */
 document.addEventListener('DOMContentLoaded', loadData);
+
 
 
