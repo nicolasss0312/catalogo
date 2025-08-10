@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo de Perfumes</title>
+    <!-- Incluye el CDN de Tailwind CSS para un estilo moderno y responsivo -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* Un fondo gris claro */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <!-- Encabezado de la página -->
+    <header class="text-center mb-12">
+        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
+            Catálogo de Perfumes
+        </h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Explora nuestra exclusiva colección de fragancias. Encuentra el aroma perfecto para cada ocasión.
+        </p>
+    </header>
+
+    <!-- Contenedor principal del catálogo -->
+    <div id="perfume-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <!-- Los productos de perfume se insertarán aquí dinámicamente con JavaScript -->
+    </div>
+
+    <!-- Script de JavaScript para manejar los datos y la visualización del catálogo -->
+    <script>
+        // Datos de ejemplo para el catálogo de perfumes
+        // Puedes reemplazar esta información con tus propios productos
+        const perfumes = [
+            {
+                name: "Aqua di Gioia",
+                description: "Una fragancia fresca y vibrante inspirada en el mar.",
+                price: "€85.00",
+                image: "https://placehold.co/400x400/bbf7d0/1e40af?text=Perfume+1"
+            },
+            {
+                name: "Chance",
+                description: "Un torbellino de felicidad con notas florales y especiadas.",
+                price: "€120.00",
+                image: "https://placehold.co/400x400/93c5fd/1e40af?text=Perfume+2"
+            },
+            {
+                name: "Sauvage",
+                description: "Un perfume audaz y sofisticado con notas amaderadas y cítricas.",
+                price: "€95.00",
+                image: "https://placehold.co/400x400/fecaca/1e40af?text=Perfume+3"
+            },
+            {
+                name: "La Vie est Belle",
+                description: "Una declaración de felicidad y feminidad, con notas dulces y florales.",
+                price: "€110.00",
+                image: "https://placehold.co/400x400/fde047/1e40af?text=Perfume+4"
+            },
+            {
+                name: "One Million",
+                description: "Un aroma atrevido y cautivador, con notas de cuero y mandarina.",
+                price: "€89.00",
+                image: "https://placehold.co/400x400/d1d5db/1e40af?text=Perfume+5"
+            },
+            {
+                name: "Black Opium",
+                description: "Una fragancia adictiva y enérgica con notas de café y flores blancas.",
+                price: "€105.00",
+                image: "https://placehold.co/400x400/e9d5ff/1e40af?text=Perfume+6"
+            },
+            {
+                name: "Eros",
+                description: "Una fragancia poderosa y sensual con notas de menta y vainilla.",
+                price: "€78.00",
+                image: "https://placehold.co/400x400/a3e635/1e40af?text=Perfume+7"
+            },
+            {
+                name: "Daisy",
+                description: "Un perfume dulce y encantador que evoca la frescura de un jardín de margaritas.",
+                price: "€75.00",
+                image: "https://placehold.co/400x400/fca5a5/1e40af?text=Perfume+8"
+            }
+        ];
+
+        const container = document.getElementById('perfume-container');
+
+        // Función para renderizar los productos en la página
+        function renderPerfumes() {
+            container.innerHTML = ''; // Limpia el contenedor antes de agregar nuevos elementos
+            perfumes.forEach(perfume => {
+                // Crea el elemento de la tarjeta del producto
+                const card = document.createElement('div');
+                card.className = 'bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105';
+
+                // Crea el contenido HTML de la tarjeta
+                card.innerHTML = `
+                    <div class="relative overflow-hidden">
+                        <img src="${perfume.image}" alt="${perfume.name}" class="w-full h-64 object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${perfume.name}</h3>
+                        <p class="text-sm text-gray-600 mb-4">${perfume.description}</p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-2xl font-bold text-gray-900">${perfume.price}</span>
+                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-full font-medium hover:bg-indigo-700 transition-colors duration-300">
+                                Comprar
+                            </button>
+                        </div>
+                    </div>
+                `;
+
+                // Añade la tarjeta al contenedor principal
+                container.appendChild(card);
+            });
+        }
+
+        // Llama a la función para renderizar el catálogo cuando la página se carga
+        document.addEventListener('DOMContentLoaded', renderPerfumes);
+    </script>
+
+</body>
+</html>
