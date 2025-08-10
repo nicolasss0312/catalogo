@@ -130,8 +130,7 @@ function paginate(list, page = 1, size = pageSize) {
   const start = (page - 1) * size;
   return list.slice(start, start + size);
 }
-
-// ====== Render ======
+// ====== Render ====== 
 function renderPerfumes(list) {
   container.innerHTML = '';
   skeleton.classList.add('hidden');
@@ -157,18 +156,20 @@ function renderPerfumes(list) {
     return;
   }
 
-  // Tarjetas con imagen uniforme (aspect-ratio)
+  // Tarjetas
   pageItems.forEach(p => {
     const card = document.createElement('article');
     card.className = 'card bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300';
+
     card.innerHTML = `
       <button class="relative w-full group" aria-label="Abrir detalle de ${p.name}">
-        <div class="relative w-full overflow-hidden bg-white" style="aspect-ratio: ${CARD_ASPECT};">
+        <!-- Alto fijo: la tarjeta NO cambia de tamaño -->
+        <div class="w-full h-64 bg-white overflow-hidden flex items-center justify-center">
           <img
             loading="lazy"
-            src="${resolveImageURL(p.image)}"
+            src="${p.image}"
             alt="Perfume ${p.name}"
-            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            class="max-h-full max-w-full object-contain transition-transform duration-300 group-hover:scale-105"
             onerror="this.src='https://placehold.co/600x600?text=Sin+imagen'"
           />
         </div>
@@ -192,7 +193,6 @@ function renderPerfumes(list) {
     container.appendChild(card);
   });
 }
-
 // ====== Debounce inputs ======
 let debounceId;
 [q, min, max, sort].forEach(el => {
