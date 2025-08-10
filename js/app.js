@@ -1,9 +1,18 @@
-// Estado global
+// ====== Ajustes de imagen ======
+const CARD_ASPECT = '4 / 3'; // cámbialo a '1 / 1' (cuadrado) o '3 / 2' si lo prefieres
+
+// Convierte enlaces de Drive compartidos al formato que sirve en páginas estáticas
+function resolveImageURL(url) {
+  const m = /\/d\/([^/]+)/.exec(url);
+  return m ? `https://lh3.googleusercontent.com/d/${m[1]}` : url;
+}
+
+// ====== Estado global ======
 let allPerfumes = [];
 let currentPage = 1;
 const pageSize = 12;
 
-// Selectores
+// ====== Selectores ======
 const container = document.getElementById('perfume-container');
 const skeleton = document.getElementById('skeleton');
 const q = document.getElementById('q');
@@ -15,7 +24,7 @@ const prevBtn = document.getElementById('prev');
 const nextBtn = document.getElementById('next');
 const pageInfo = document.getElementById('page-info');
 
-// Modal
+// ====== Modal ======
 const modal = document.getElementById('modal');
 const modalClose = document.getElementById('modal-close');
 const modalTitle = document.getElementById('modal-title');
@@ -25,15 +34,15 @@ const modalDesc = document.getElementById('modal-desc');
 const modalPrice = document.getElementById('modal-price');
 const modalAdd = document.getElementById('modal-add');
 
-// Carrito
+// ====== Carrito ======
 const CART_KEY = 'perfume_cart';
 const cartBtn = document.getElementById('cart-btn');
 const cartCount = document.getElementById('cart-count');
 
-// Formateador de moneda (EUR por defecto, ajusta si deseas)
+// Formateador de moneda (EUR por defecto)
 const fmtPrice = new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' });
 
-// Util: leer y guardar carrito
+// ====== Utilidades carrito ======
 function getCart() {
   try { return JSON.parse(localStorage.getItem(CART_KEY) || '[]'); }
   catch { return []; }
@@ -47,11 +56,18 @@ function addToCart(id) {
   saveCart(cart);
 }
 
-// Modal helpers
+// ====== Modal helpers ======
 function openModal(product) {
   modalTitle.textContent = product.name;
-  modalImg.src = product.image;
+  modalImg.src = resolveImageURL(product.image);
   modalImg.alt = `Perfume ${product.name}`;
+
+  // Asegurar que el modal no recorte la imagen
+  modalImg.classList.remove('object-cover');
+  modalImg.classList.add('object-contain');
+  // Opcional: limitar altura si lo necesitas
+  // modalImg.classList.add('max-h-80');
+
   modalBrand.textContent = product.brand;
   modalDesc.textContent = product.description;
   modalPrice.textContent = fmtPrice.format(product.price);
@@ -63,7 +79,7 @@ function closeModal() { modal.classList.add('hidden'); modal.classList.remove('f
 modalClose.addEventListener('click', closeModal);
 modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
 
-// URL Sync
+// ====== URL Sync ======
 function syncURL(term, minP, maxP, sortVal, page) {
   const params = new URLSearchParams();
   if (term) params.set('q', term);
@@ -83,7 +99,7 @@ function loadFromURL() {
   currentPage = parseInt(u.get('page') || '1', 10) || 1;
 }
 
-// Filtro + ordenamiento principal
+// ====== Filtro + ordenamiento ======
 function applyFilters(triggerPaginationReset = false) {
   const term = (q.value || '').toLowerCase();
   const minP = parseFloat(min.value);
@@ -109,12 +125,13 @@ function applyFilters(triggerPaginationReset = false) {
   syncURL(term, isFinite(minF) && minF > 0 ? minF : '', isFinite(maxF) && maxF !== Infinity ? maxF : '', sort.value, currentPage);
 }
 
-// Paginación
+// ====== Paginación ======
 function paginate(list, page = 1, size = pageSize) {
   const start = (page - 1) * size;
   return list.slice(start, start + size);
 }
 
+// ====== Render ======
 function renderPerfumes(list) {
   container.innerHTML = '';
   skeleton.classList.add('hidden');
@@ -140,13 +157,21 @@ function renderPerfumes(list) {
     return;
   }
 
-  // Render cards
+  // Tarjetas con imagen uniforme (aspect-ratio)
   pageItems.forEach(p => {
     const card = document.createElement('article');
     card.className = 'card bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300';
     card.innerHTML = `
-      <button class="relative overflow-hidden w-full group" aria-label="Abrir detalle de ${p.name}">
-        <img loading="lazy" src="${p.image}" alt="Perfume ${p.name}" class="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300" onerror="this.src='https://placehold.co/600x600?text=Sin+imagen'" />
+      <button class="relative w-full group" aria-label="Abrir detalle de ${p.name}">
+        <div class="relative w-full overflow-hidden bg-white" style="aspect-ratio: ${CARD_ASPECT};">
+          <img
+            loading="lazy"
+            src="${resolveImageURL(p.image)}"
+            alt="Perfume ${p.name}"
+            class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            onerror="this.src='https://placehold.co/600x600?text=Sin+imagen'"
+          />
+        </div>
       </button>
       <div class="p-6">
         <h3 class="text-xl font-semibold text-gray-800 mb-1">${p.name}</h3>
@@ -168,7 +193,7 @@ function renderPerfumes(list) {
   });
 }
 
-// Debounce inputs
+// ====== Debounce inputs ======
 let debounceId;
 [q, min, max, sort].forEach(el => {
   el.addEventListener('input', () => {
@@ -177,11 +202,11 @@ let debounceId;
   });
 });
 
-// Paginación events
+// ====== Paginación events ======
 prevBtn.addEventListener('click', () => { if (currentPage > 1) { currentPage--; applyFilters(); } });
 nextBtn.addEventListener('click', () => { currentPage++; applyFilters(); });
 
-// Carga de datos
+// ====== Carga de datos ======
 async function loadData() {
   try {
     const res = await fetch('./data/perfumes.json', { cache: 'no-store' });
@@ -198,10 +223,10 @@ async function loadData() {
   applyFilters();
 }
 
-// Init
+// ====== Init ======
 document.addEventListener('DOMContentLoaded', loadData);
 
-// Carrito (demo): al hacer click en el botón flotante, mostramos un resumen simple
+// ====== Carrito (demo) ======
 cartBtn.addEventListener('click', () => {
   const cart = getCart();
   if (!cart.length) { alert('Tu carrito está vacío'); return; }
