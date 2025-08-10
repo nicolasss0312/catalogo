@@ -8,10 +8,8 @@ function resolveImageURL(url) {
 /* ========= Portadas por marca (opcional) ========= */
 // Coloca aquí la imagen de portada de cada marca (usar URL lh3 o archivo local)
 const BRAND_COVERS = {
-  // Ejemplo:
-  // "Carolina Herrera": "https://lh3.googleusercontent.com/d/TU_ID_DE_DRIVE",
-  // "Dior": "./assets/brands/dior.png",
-  // "Chanel": "https://lh3.googleusercontent.com/d/OTRO_ID",
+  "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
+  // ...puedes agregar más marcas aquí
 };
 
 /* ========= WhatsApp (config) ========= */
