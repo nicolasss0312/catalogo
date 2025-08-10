@@ -5,7 +5,7 @@ function resolveImageURL(url) {
 }
 
 /* ========= Branding del sitio ========= */
-const SITE_TITLE = 'Aromanía'; // cámbialo por el nombre que elijas
+const SITE_TITLE = 'Le parfumier'; // cámbialo por el nombre que elijas
 
 /* ========= Portadas por marca (opcional) ========= */
 const BRAND_COVERS = {
