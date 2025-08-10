@@ -1,15 +1,15 @@
 [
-  {
-    "id": "good-girl",
-    "brand": "Carolina Herrera",
-    "name": "Good Girl",
-    "description": "Una fragancia poderosa y sensual con notas de jazmín y haba tonka.",
-    "price": 115.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/fecaca/1e40af?text=Good+Girl",
-    "tags": ["femenino", "floral"]
-  },
-  {
+{
+  "id": "ch-men",
+  "brand": "Carolina Herrera",
+  "name": "CH Men",
+  "description": "Aromático amaderado con toques de cuero y vainilla.",
+  "price": 115.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1-tyOSQ4Qu6LobcLfR1g-btN5ZHtWjjkp",
+  "tags": ["masculino", "amaderado"]
+},  
+{
     "id": "bad-boy",
     "brand": "Carolina Herrera",
     "name": "Bad Boy",
@@ -18,47 +18,47 @@
     "currency": "EUR",
     "image": "https://lh3.googleusercontent.com/d/1b5eO9zBxmBswxjU44mgB2fllfBEp02e2",
     "tags": ["masculino", "amaderado"]
-  },
-  {
-    "id": "sauvage",
-    "brand": "Dior",
-    "name": "Sauvage",
-    "description": "Audaz con notas amaderadas y cítricas.",
-    "price": 99.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/bbf7d0/1e40af?text=Sauvage",
-    "tags": ["masculino", "cítrico"]
-  },
-  {
-    "id": "chance",
-    "brand": "Chanel",
-    "name": "Chance",
-    "description": "Torbellino de felicidad con notas florales y especiadas.",
-    "price": 120.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/fde047/1e40af?text=Chance",
-    "tags": ["femenino", "floral"]
-  },
-  {
-    "id": "one-million",
-    "brand": "Paco Rabanne",
-    "name": "One Million",
-    "description": "Aroma atrevido y cautivador, con notas de cuero y mandarina.",
-    "price": 89.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/d1d5db/1e40af?text=One+Million",
-    "tags": ["masculino", "especiado"]
-  },
-  {
-    "id": "black-opium",
-    "brand": "YSL",
-    "name": "Black Opium",
-    "description": "Fragancia adictiva con notas de café y flores blancas.",
-    "price": 105.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/e9d5ff/1e40af?text=Black+Opium",
-    "tags": ["femenino", "oriental"]
-  },
+},
+{
+  "id": "212-vip-men",
+  "brand": "Carolina Herrera",
+  "name": "212 VIP Men",
+  "description": "Fresco y moderno, con notas cítricas y amaderadas.",
+  "price": 99.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1-u0_HjBMjiL2D5dJWUQIgiO0JEy-xbVC",
+  "tags": ["masculino", "fresco"]
+},
+{
+  "id": "212-vip-black",
+  "brand": "Carolina Herrera",
+  "name": "212 VIP Black",
+  "description": "Aromático nocturno con lavanda y vainilla, ideal para la noche.",
+  "price": 102.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1cW-gwFwVTDaxdDY5a_ckEmeXXn13XOVN",
+  "tags": ["masculino", "aromático"]
+},
+{
+  "id": "212-men-nyc",
+  "brand": "Carolina Herrera",
+  "name": "212 Men NYC",
+  "description": "Fresco urbano con lavanda y pomelo.",
+  "price": 88.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1DXUwPwb9KNh_t_XxUdmYN16gJVNca9m-",
+  "tags": ["masculino", "fresco"]
+},
+{
+  "id": "212-men-heroes",
+  "brand": "Carolina Herrera",
+  "name": "212 Men Heroes",
+  "description": "Fresco y juvenil, con un toque aromático ideal para el día.",
+  "price": 96.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1A0TvHbvfkulRZvN1p7cXwm0aRtCWCt2x",
+  "tags": ["masculino", "fresco"]
+},
   {
     "id": "eros",
     "brand": "Versace",
