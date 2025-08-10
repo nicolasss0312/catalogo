@@ -59,104 +59,95 @@
   "image": "https://lh3.googleusercontent.com/d/1A0TvHbvfkulRZvN1p7cXwm0aRtCWCt2x",
   "tags": ["masculino", "fresco"]
 },
-  {
-    "id": "eros",
-    "brand": "Versace",
-    "name": "Eros",
-    "description": "Poderosa y sensual con notas de menta y vainilla.",
-    "price": 78.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/a3e635/1e40af?text=Eros",
-    "tags": ["masculino", "dulce"]
-  },
-  {
-    "id": "daisy",
-    "brand": "Marc Jacobs",
-    "name": "Daisy",
-    "description": "Dulce y encantador, evoca la frescura de un jardín de margaritas.",
-    "price": 75.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/fca5a5/1e40af?text=Daisy",
-    "tags": ["femenino", "fresco"]
-  },
-  {
-    "id": "bleu-de-chanel",
-    "brand": "Chanel",
-    "name": "Bleu de Chanel",
-    "description": "Aromático amaderado, elegante y atemporal.",
-    "price": 110.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/c7d2fe/1e40af?text=Bleu",
-    "tags": ["masculino", "amaderado"]
-  },
-  {
-    "id": "la-vie-est-belle",
-    "brand": "Lancôme",
-    "name": "La Vie Est Belle",
-    "description": "Iris gourmand con toques de vainilla y praliné.",
-    "price": 102.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/fbcfe8/1e40af?text=La+Vie",
-    "tags": ["femenino", "gourmand"]
-  },
-  {
-    "id": "light-blue",
-    "brand": "Dolce & Gabbana",
-    "name": "Light Blue",
-    "description": "Cítrico y veraniego con manzana y cedro.",
-    "price": 85.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/bae6fd/1e40af?text=Light+Blue",
-    "tags": ["fresco", "cítrico"]
-  },
-  {
-    "id": "212-men",
-    "brand": "Carolina Herrera",
-    "name": "212 Men",
-    "description": "Fresco urbano con lavanda y pomelo.",
-    "price": 88.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/ddd6fe/1e40af?text=212+Men",
-    "tags": ["masculino", "fresco"]
-  },
-  {
-    "id": "ck-one",
-    "brand": "Calvin Klein",
-    "name": "CK One",
-    "description": "Unisex, limpio y cítrico, ideal para diario.",
-    "price": 60.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/e5e7eb/1e40af?text=CK+One",
-    "tags": ["unisex", "cítrico"]
-  },
-  {
-    "id": "intenso",
-    "brand": "Dolce & Gabbana",
-    "name": "Intenso",
-    "description": "Tabaco, heno y madera, sofisticado.",
-    "price": 92.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/fee2e2/1e40af?text=Intenso",
-    "tags": ["masculino", "tabaco"]
-  },
-  {
-    "id": "olympea",
-    "brand": "Paco Rabanne",
-    "name": "Olympea",
-    "description": "Vainilla salada con jazmín, moderno y sensual.",
-    "price": 98.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/ffedd5/1e40af?text=Olympea",
-    "tags": ["femenino", "vainilla"]
-  },
-  {
-    "id": "aventus",
-    "brand": "Creed",
-    "name": "Aventus",
-    "description": "Piña, abedul y almizcle, ícono nicho." ,
-    "price": 285.00,
-    "currency": "EUR",
-    "image": "https://placehold.co/600x600/d1fae5/1e40af?text=Aventus",
-    "tags": ["masculino", "nicho"]
-  }
+{
+  "id": "212-sexy",
+  "brand": "Carolina Herrera",
+  "name": "212 Sexy",
+  "description": "Oriental floral, sensual y cálido con vainilla y pimienta rosa.",
+  "price": 98.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1Q3lU4AmpK6vDFrIey0adGpItX54VfTIR",
+  "tags": ["femenino", "oriental"]
+}, 
+{
+  "id": "212-nyc",
+  "brand": "Carolina Herrera",
+  "name": "212 NYC",
+  "description": "Floral fresco con notas cítricas y almizcle, urbano y luminoso.",
+  "price": 95.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1cKp1oh_50UY4jDBMqR4KPgLlC7k4STiZ",
+  "tags": ["femenino", "fresco"]
+},
+{
+  "id": "very-good-girl",
+  "brand": "Carolina Herrera",
+  "name": "Very Good Girl",
+  "description": "Floral-frutal, con rosa y vainilla. Femenina y sofisticada.",
+  "price": 120.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/166vsqdDUfNIsMYhvrGvEW8llAL_wuyxR",
+  "tags": ["femenino", "floral"]
+},
+{
+  "id": "212-heroes-forever-young",
+  "brand": "Carolina Herrera",
+  "name": "212 Heroes Forever Young",
+  "description": "Floral frutal, chispeante y juvenil con toques cítricos y flores blancas.",
+  "price": 96.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1J6gC1Wpv4fBiuHQZ3KFyoWjOrhfoxUlK",
+  "tags": ["femenino", "floral", "frutal"]
+},
+{
+  "id": "good-girl-blush",
+  "brand": "Carolina Herrera",
+  "name": "Good Girl Blush",
+  "description": "Floral afrutado con pétalos de rosa y peonía; femenino, suave y luminoso.",
+  "price": 118.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1kGwkvZofp_oQkhAPgIDoPe1yIBJZoEtl",
+  "tags": ["femenino", "floral", "afrutado"]
+}, 
+{
+  "id": "good-girl-fantastic-pink",
+  "brand": "Carolina Herrera",
+  "name": "Good Girl Fantastic Pink",
+  "description": "Floral oriental con vainilla y toques dulces. Edición especial con frasco rosa.",
+  "price": 118.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1C7ZA3JbK4xUs82aSlhS9ptjjGe9a237b",
+  "tags": ["femenino", "floral", "edición especial"]
+}, 
+{
+  "id": "ch-women",
+  "brand": "Carolina Herrera",
+  "name": "CH Women",
+  "description": "Floral oriental, elegante y cálido con toques de rosa y vainilla.",
+  "price": 115.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1J2YTGlPxy5_mezUs-yCat-_w8sxQCkJR",
+  "tags": ["femenino", "floral", "oriental"]
+}, 
+{
+  "id": "212-vip-rose",
+  "brand": "Carolina Herrera",
+  "name": "212 VIP Rosé",
+  "description": "Floral frutal con chispa rosé; elegante, fresco y divertido.",
+  "price": 105.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/13_Js_ma1uRhiGXvvcQqFY0jXo9vdtZ2t",
+  "tags": ["femenino", "floral", "frutal"]
+}, 
+{
+  "id": "212-vip",
+  "brand": "Carolina Herrera",
+  "name": "212 VIP",
+  "description": "Oriental vainilla con toque frutal; festivo, glam y nocturno.",
+  "price": 109.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1TgfSdMouQVkqzH0YJtwVDpjz6MhWkXGR",
+  "tags": ["femenino", "oriental", "vainilla"]
+}
+
 ]
