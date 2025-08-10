@@ -1,168 +1,94 @@
-<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo de Perfumes</title>
-    <!-- Incluye el CDN de Tailwind CSS para un estilo moderno y responsivo -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #f3f4f6; /* Un fondo gris claro */
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo de Perfumes</title>
+
+  <!-- SEO / Social -->
+  <meta name="description" content="Catálogo de perfumes: encuentra tu fragancia ideal por marca, precio y notas." />
+  <meta property="og:title" content="Catálogo de Perfumes" />
+  <meta property="og:description" content="Explora fragancias por marca, precio y notas. " />
+  <meta property="og:type" content="website" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%8E%97%3C/text%3E%3C/svg%3E" />
+
+  <!-- Tailwind (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Fuente -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- CSS propio -->
+  <link rel="stylesheet" href="./css/custom.css" />
+
+  <style>
+    body { font-family: 'Inter', sans-serif; background-color: #f3f4f6; }
+  </style>
 </head>
 <body class="p-4 sm:p-8">
+  <!-- Header -->
+  <header class="text-center mb-8">
+    <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">Catálogo de Perfumes</h1>
+    <p class="text-lg text-gray-600 max-w-2xl mx-auto">Explora nuestra exclusiva colección de fragancias. Encuentra el aroma perfecto para cada ocasión.</p>
+  </header>
 
-    <!-- Encabezado de la página -->
-    <header class="text-center mb-12">
-        <h1 class="text-4xl sm:text-5xl font-bold text-gray-900 mb-2">
-            Catálogo de Perfumes
-        </h1>
-        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
-            Explora nuestra exclusiva colección de fragancias. Encuentra el aroma perfecto para cada ocasión.
-        </p>
-    </header>
+  <!-- Controles de filtro / orden -->
+  <section class="mb-6 grid gap-3 sm:grid-cols-4">
+    <input id="q" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="Buscar por marca o nombre" />
+    <input id="min" type="number" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="Precio mín." />
+    <input id="max" type="number" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="Precio máx." />
+    <select id="sort" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500">
+      <option value="">Ordenar...</option>
+      <option value="price-asc">Precio: menor a mayor</option>
+      <option value="price-desc">Precio: mayor a menor</option>
+      <option value="name-asc">Nombre: A-Z</option>
+    </select>
+  </section>
 
-    <!-- Barra de búsqueda por marca -->
-    <div class="mb-8 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4 max-w-xl mx-auto">
-        <input type="text" id="brand-search" placeholder="Buscar por marca, ej. 'Carolina Herrera'" class="w-full sm:w-80 p-3 rounded-full border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all duration-200">
-        <button id="search-button" class="w-full sm:w-auto px-6 py-3 bg-indigo-600 text-white font-medium rounded-full hover:bg-indigo-700 transition-colors duration-200 shadow-md">
-            Buscar
-        </button>
+  <!-- Estado de carga (skeleton) -->
+  <div id="skeleton" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">
+    <div class="animate-pulse h-64 bg-gray-200 rounded" ></div>
+    <div class="animate-pulse h-64 bg-gray-200 rounded" ></div>
+    <div class="animate-pulse h-64 bg-gray-200 rounded" ></div>
+    <div class="animate-pulse h-64 bg-gray-200 rounded" ></div>
+  </div>
+
+  <!-- Grid de productos -->
+  <main id="perfume-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></main>
+
+  <!-- Paginación -->
+  <div id="pagination" class="flex items-center justify-center gap-2 mt-8 hidden">
+    <button id="prev" class="px-4 py-2 rounded-full border bg-white hover:bg-gray-50">Anterior</button>
+    <span id="page-info" class="text-sm text-gray-600"></span>
+    <button id="next" class="px-4 py-2 rounded-full border bg-white hover:bg-gray-50">Siguiente</button>
+  </div>
+
+  <!-- Modal de detalle -->
+  <div id="modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4">
+    <div class="bg-white rounded-2xl max-w-lg w-full overflow-hidden shadow-xl">
+      <div class="flex justify-between items-center px-6 py-4 border-b">
+        <h3 id="modal-title" class="text-xl font-semibold text-gray-800">Detalle</h3>
+        <button id="modal-close" class="p-2 rounded hover:bg-gray-100" aria-label="Cerrar">✕</button>
+      </div>
+      <div class="p-6 grid gap-4 sm:grid-cols-2">
+        <img id="modal-img" src="" alt="" class="w-full h-56 object-cover rounded" />
+        <div>
+          <p id="modal-brand" class="text-sm font-medium text-gray-500 mb-1"></p>
+          <p id="modal-desc" class="text-sm text-gray-700 mb-3"></p>
+          <p id="modal-price" class="text-2xl font-bold text-gray-900 mb-4"></p>
+          <button id="modal-add" class="w-full bg-indigo-600 text-white px-4 py-2 rounded-full font-medium hover:bg-indigo-700">
+            Agregar al carrito
+          </button>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <!-- Contenedor principal del catálogo -->
-    <div id="perfume-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        <!-- Los productos de perfume se insertarán aquí dinámicamente con JavaScript -->
-    </div>
+  <!-- Botón flotante de carrito -->
+  <button id="cart-btn" class="fixed bottom-5 right-5 bg-indigo-600 text-white rounded-full px-4 py-3 shadow-lg hover:bg-indigo-700 flex items-center gap-2">
+    🛒 <span id="cart-count" class="text-sm font-semibold">0</span>
+  </button>
 
-    <!-- Script de JavaScript para manejar los datos y la visualización del catálogo -->
-    <script>
-        // Datos de ejemplo para el catálogo de perfumes, ahora incluyendo la marca
-        const allPerfumes = [
-            {
-                brand: "Carolina Herrera",
-                name: "Good Girl",
-                description: "Una fragancia poderosa y sensual con notas de jazmín y haba tonka.",
-                price: "€115.00",
-                image: "https://placehold.co/400x400/fecaca/1e40af?text=Good+Girl"
-            },
-            {
-                brand: "Carolina Herrera",
-                name: "Bad Boy",
-                description: "Un perfume audaz y sofisticado con notas de pimienta negra y cacao.",
-                price: "€95.00",
-                image: "https://placehold.co/400x400/93c5fd/1e40af?text=Bad+Boy"
-            },
-            {
-                brand: "Dior",
-                name: "Sauvage",
-                description: "Un perfume audaz y sofisticado con notas amaderadas y cítricas.",
-                price: "€95.00",
-                image: "https://placehold.co/400x400/bbf7d0/1e40af?text=Sauvage"
-            },
-            {
-                brand: "Chanel",
-                name: "Chance",
-                description: "Un torbellino de felicidad con notas florales y especiadas.",
-                price: "€120.00",
-                image: "https://placehold.co/400x400/fde047/1e40af?text=Chance"
-            },
-            {
-                brand: "Paco Rabanne",
-                name: "One Million",
-                description: "Un aroma atrevido y cautivador, con notas de cuero y mandarina.",
-                price: "€89.00",
-                image: "https://placehold.co/400x400/d1d5db/1e40af?text=One+Million"
-            },
-            {
-                brand: "YSL",
-                name: "Black Opium",
-                description: "Una fragancia adictiva y enérgica con notas de café y flores blancas.",
-                price: "€105.00",
-                image: "https://placehold.co/400x400/e9d5ff/1e40af?text=Black+Opium"
-            },
-            {
-                brand: "Versace",
-                name: "Eros",
-                description: "Una fragancia poderosa y sensual con notas de menta y vainilla.",
-                price: "€78.00",
-                image: "https://placehold.co/400x400/a3e635/1e40af?text=Eros"
-            },
-            {
-                brand: "Marc Jacobs",
-                name: "Daisy",
-                description: "Un perfume dulce y encantador que evoca la frescura de un jardín de margaritas.",
-                price: "€75.00",
-                image: "https://placehold.co/400x400/fca5a5/1e40af?text=Daisy"
-            }
-        ];
-
-        const container = document.getElementById('perfume-container');
-        const searchInput = document.getElementById('brand-search');
-        const searchButton = document.getElementById('search-button');
-
-        // Función para renderizar los productos en la página, con opción de filtrar por marca
-        function renderPerfumes(brandFilter = '') {
-            container.innerHTML = ''; // Limpia el contenedor
-            
-            const filteredPerfumes = brandFilter 
-                ? allPerfumes.filter(perfume => perfume.brand.toLowerCase().includes(brandFilter.toLowerCase()))
-                : allPerfumes;
-            
-            if (filteredPerfumes.length === 0) {
-                container.innerHTML = `<p class="text-center text-lg text-gray-500 col-span-full">No se encontraron perfumes para la marca '${brandFilter}'.</p>`;
-                return;
-            }
-
-            filteredPerfumes.forEach(perfume => {
-                const card = document.createElement('div');
-                card.className = 'bg-white rounded-lg shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105';
-                
-                // Crea el contenido HTML de la tarjeta
-                card.innerHTML = `
-                    <div class="relative overflow-hidden">
-                        <img src="${perfume.image}" alt="${perfume.name}" class="w-full h-64 object-cover">
-                    </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-semibold text-gray-800 mb-2">${perfume.name}</h3>
-                        <p class="text-sm font-medium text-gray-500 mb-1">${perfume.brand}</p>
-                        <p class="text-sm text-gray-600 mb-4">${perfume.description}</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-gray-900">${perfume.price}</span>
-                            <button class="bg-indigo-600 text-white px-4 py-2 rounded-full font-medium hover:bg-indigo-700 transition-colors duration-300">
-                                Comprar
-                            </button>
-                        </div>
-                    </div>
-                `;
-
-                container.appendChild(card);
-            });
-        }
-        
-        // Maneja el clic en el botón de búsqueda
-        searchButton.addEventListener('click', () => {
-            const brand = searchInput.value;
-            renderPerfumes(brand);
-        });
-
-        // Permite buscar al presionar "Enter" en el campo de texto
-        searchInput.addEventListener('keypress', (event) => {
-            if (event.key === 'Enter') {
-                const brand = searchInput.value;
-                renderPerfumes(brand);
-            }
-        });
-
-        // Llama a la función para renderizar el catálogo completo al cargar la página
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPerfumes();
-        });
-    </script>
-
+  <!-- JS -->
+  <script src="./js/app.js"></script>
 </body>
 </html>

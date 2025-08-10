@@ -1,0 +1,162 @@
+[
+  {
+    "id": "good-girl",
+    "brand": "Carolina Herrera",
+    "name": "Good Girl",
+    "description": "Una fragancia poderosa y sensual con notas de jazmín y haba tonka.",
+    "price": 115.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/fecaca/1e40af?text=Good+Girl",
+    "tags": ["femenino", "floral"]
+  },
+  {
+    "id": "bad-boy",
+    "brand": "Carolina Herrera",
+    "name": "Bad Boy",
+    "description": "Un perfume audaz y sofisticado con notas de pimienta negra y cacao.",
+    "price": 95.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/93c5fd/1e40af?text=Bad+Boy",
+    "tags": ["masculino", "amaderado"]
+  },
+  {
+    "id": "sauvage",
+    "brand": "Dior",
+    "name": "Sauvage",
+    "description": "Audaz con notas amaderadas y cítricas.",
+    "price": 99.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/bbf7d0/1e40af?text=Sauvage",
+    "tags": ["masculino", "cítrico"]
+  },
+  {
+    "id": "chance",
+    "brand": "Chanel",
+    "name": "Chance",
+    "description": "Torbellino de felicidad con notas florales y especiadas.",
+    "price": 120.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/fde047/1e40af?text=Chance",
+    "tags": ["femenino", "floral"]
+  },
+  {
+    "id": "one-million",
+    "brand": "Paco Rabanne",
+    "name": "One Million",
+    "description": "Aroma atrevido y cautivador, con notas de cuero y mandarina.",
+    "price": 89.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/d1d5db/1e40af?text=One+Million",
+    "tags": ["masculino", "especiado"]
+  },
+  {
+    "id": "black-opium",
+    "brand": "YSL",
+    "name": "Black Opium",
+    "description": "Fragancia adictiva con notas de café y flores blancas.",
+    "price": 105.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/e9d5ff/1e40af?text=Black+Opium",
+    "tags": ["femenino", "oriental"]
+  },
+  {
+    "id": "eros",
+    "brand": "Versace",
+    "name": "Eros",
+    "description": "Poderosa y sensual con notas de menta y vainilla.",
+    "price": 78.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/a3e635/1e40af?text=Eros",
+    "tags": ["masculino", "dulce"]
+  },
+  {
+    "id": "daisy",
+    "brand": "Marc Jacobs",
+    "name": "Daisy",
+    "description": "Dulce y encantador, evoca la frescura de un jardín de margaritas.",
+    "price": 75.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/fca5a5/1e40af?text=Daisy",
+    "tags": ["femenino", "fresco"]
+  },
+  {
+    "id": "bleu-de-chanel",
+    "brand": "Chanel",
+    "name": "Bleu de Chanel",
+    "description": "Aromático amaderado, elegante y atemporal.",
+    "price": 110.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/c7d2fe/1e40af?text=Bleu",
+    "tags": ["masculino", "amaderado"]
+  },
+  {
+    "id": "la-vie-est-belle",
+    "brand": "Lancôme",
+    "name": "La Vie Est Belle",
+    "description": "Iris gourmand con toques de vainilla y praliné.",
+    "price": 102.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/fbcfe8/1e40af?text=La+Vie",
+    "tags": ["femenino", "gourmand"]
+  },
+  {
+    "id": "light-blue",
+    "brand": "Dolce & Gabbana",
+    "name": "Light Blue",
+    "description": "Cítrico y veraniego con manzana y cedro.",
+    "price": 85.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/bae6fd/1e40af?text=Light+Blue",
+    "tags": ["fresco", "cítrico"]
+  },
+  {
+    "id": "212-men",
+    "brand": "Carolina Herrera",
+    "name": "212 Men",
+    "description": "Fresco urbano con lavanda y pomelo.",
+    "price": 88.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/ddd6fe/1e40af?text=212+Men",
+    "tags": ["masculino", "fresco"]
+  },
+  {
+    "id": "ck-one",
+    "brand": "Calvin Klein",
+    "name": "CK One",
+    "description": "Unisex, limpio y cítrico, ideal para diario.",
+    "price": 60.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/e5e7eb/1e40af?text=CK+One",
+    "tags": ["unisex", "cítrico"]
+  },
+  {
+    "id": "intenso",
+    "brand": "Dolce & Gabbana",
+    "name": "Intenso",
+    "description": "Tabaco, heno y madera, sofisticado.",
+    "price": 92.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/fee2e2/1e40af?text=Intenso",
+    "tags": ["masculino", "tabaco"]
+  },
+  {
+    "id": "olympea",
+    "brand": "Paco Rabanne",
+    "name": "Olympea",
+    "description": "Vainilla salada con jazmín, moderno y sensual.",
+    "price": 98.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/ffedd5/1e40af?text=Olympea",
+    "tags": ["femenino", "vainilla"]
+  },
+  {
+    "id": "aventus",
+    "brand": "Creed",
+    "name": "Aventus",
+    "description": "Piña, abedul y almizcle, ícono nicho." ,
+    "price": 285.00,
+    "currency": "EUR",
+    "image": "https://placehold.co/600x600/d1fae5/1e40af?text=Aventus",
+    "tags": ["masculino", "nicho"]
+  }
+]

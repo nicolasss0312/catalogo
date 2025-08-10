@@ -1,0 +1,11 @@
+/* Ajustes mínimos adicionales */
+:root { --ring: 0 0% 0%; }
+
+/***** Accesibilidad *****/
+:focus-visible { outline: 2px solid #6366f1; outline-offset: 2px; }
+
+/***** Scrollbar suave *****/
+html { scroll-behavior: smooth; }
+
+/***** Utilidades *****/
+.card:hover { transform: translateY(-2px); transition: transform 200ms ease; }
