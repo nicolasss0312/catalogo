@@ -10,6 +10,7 @@ const SITE_TITLE = 'Le parfumier'; // cámbialo por el nombre que elijas
 /* ========= Portadas por marca (opcional) ========= */
 const BRAND_COVERS = {
   "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
+  "Paco Rabanne": "https://lh3.googleusercontent.com/d/1LtjhfwoLbiYSPPrCFZ2ykEvX7x66bljw",
   // Agrega más marcas si quieres:
   // "Dior": "https://lh3.googleusercontent.com/d/TU_ID",
   // "Chanel": "./assets/brands/chanel.png",
