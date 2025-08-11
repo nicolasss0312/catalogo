@@ -5,13 +5,12 @@ function resolveImageURL(url) {
 }
 
 /* ========= Branding del sitio ========= */
-const SITE_TITLE = 'Le parfumier'; // cámbialo por el nombre que elijas
+const SITE_TITLE = 'Le parfumier';
 
 /* ========= Portadas por marca (opcional) ========= */
 const BRAND_COVERS = {
   "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
   "Paco Rabanne": "https://lh3.googleusercontent.com/d/1LtjhfwoLbiYSPPrCFZ2ykEvX7x66bljw",
-  // Agrega más marcas si quieres:
   // "Dior": "https://lh3.googleusercontent.com/d/TU_ID",
   // "Chanel": "./assets/brands/chanel.png",
 };
@@ -182,6 +181,7 @@ function renderBrandsDropdown() {
   if (!brandsDDContent) return;
   brandsDDContent.innerHTML = '';
   const brands = getBrandsData();
+
   // Botón "Todas"
   const allBtn = document.createElement('button');
   allBtn.className = 'px-3 py-2 rounded-full border hover:bg-gray-50';
@@ -213,26 +213,32 @@ function hideBrandsDD() { brandsDD?.classList.add('hidden'); }
 /* ========= Vistas ========= */
 function showBrandsView() {
   activeBrand = "";
-  brandsView && brandsView.classList.remove('hidden');
-  filtersBar && filtersBar.classList.add('hidden');
-  brandHeader && brandHeader.classList.add('hidden');
-  container && container.classList.add('hidden');
-  pagination && pagination.classList.add('hidden');
+  brandsView?.classList.remove('hidden');
+  filtersBar?.classList.add('hidden');
+  brandHeader?.classList.add('hidden');
+  container?.classList.add('hidden');
+  pagination?.classList.add('hidden');
   hideBrandsDD();
   history.replaceState({}, '', location.pathname);
 }
 
+/* >>> CAMBIO CLAVE: El encabezado de marca solo aparece si hay marca activa */
 function showCatalogView() {
-  brandsView && brandsView.classList.add('hidden');
-  filtersBar && filtersBar.classList.remove('hidden');
-  brandHeader && brandHeader.classList.remove('hidden');
-  container && container.classList.remove('hidden');
+  brandsView?.classList.add('hidden');
+  filtersBar?.classList.remove('hidden');
+  container?.classList.remove('hidden');
+
+  if (activeBrand) {
+    brandHeader?.classList.remove('hidden');
+    brandTitle && (brandTitle.textContent = activeBrand);
+  } else {
+    brandHeader?.classList.add('hidden');
+  }
 }
 
 function goToBrand(brand) {
   activeBrand = brand;
   currentPage = 1;
-  brandTitle && (brandTitle.textContent = brand);
   showCatalogView();
   applyFilters(true);
 }
@@ -393,12 +399,30 @@ function toggleMobileMenu() { mobileMenu?.classList.toggle('hidden'); hideBrands
 hamburger && hamburger.addEventListener('click', toggleMobileMenu);
 
 navBrands && navBrands.addEventListener('click', (e) => { e.preventDefault(); toggleBrandsDD(); });
-navCatalog && navCatalog.addEventListener('click', (e) => { e.preventDefault(); hideBrandsDD(); activeBrand=''; showCatalogView(); applyFilters(true); });
-navContact && navContact.addEventListener('click', (e) => { e.preventDefault(); hideBrandsDD(); window.open(`https://wa.me/${WA_NUMBERS[0]}`, '_blank'); });
+navCatalog && navCatalog.addEventListener('click', (e) => {
+  e.preventDefault();
+  hideBrandsDD();
+  activeBrand = '';
+  showCatalogView();     // << ahora oculta brandHeader cuando no hay marca
+  applyFilters(true);
+});
+navContact && navContact.addEventListener('click', (e) => {
+  e.preventDefault();
+  hideBrandsDD();
+  window.open(`https://wa.me/${WA_NUMBERS[0]}`, '_blank');
+});
 
 mNavBrands && mNavBrands.addEventListener('click', () => { closeMobileMenu(); showBrandsView(); });
-mNavCatalog && mNavCatalog.addEventListener('click', () => { closeMobileMenu(); activeBrand=''; showCatalogView(); applyFilters(true); });
-mNavContact && mNavContact.addEventListener('click', () => { closeMobileMenu(); window.open(`https://wa.me/${WA_NUMBERS[0]}`, '_blank'); });
+mNavCatalog && mNavCatalog.addEventListener('click', () => {
+  closeMobileMenu();
+  activeBrand = '';
+  showCatalogView();     // << idem mobile
+  applyFilters(true);
+});
+mNavContact && mNavContact.addEventListener('click', () => {
+  closeMobileMenu();
+  window.open(`https://wa.me/${WA_NUMBERS[0]}`, '_blank');
+});
 
 // Cerrar dropdown si haces click fuera o al scrollear
 document.addEventListener('click', (e) => {
@@ -424,7 +448,6 @@ async function loadData() {
   loadFromURL();
   renderBrands();        // landing
   if (activeBrand) {
-    brandTitle && (brandTitle.textContent = activeBrand);
     showCatalogView();
     applyFilters();
   } else {
