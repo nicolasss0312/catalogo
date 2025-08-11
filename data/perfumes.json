@@ -158,6 +158,186 @@
   "currency": "EUR",
   "image": "https://lh3.googleusercontent.com/d/1BtDMabxHFmA-_Z5QyzQ_8RN_Nt0gOTIV",
   "tags": ["masculino", "acuático", "amaderado", "fresco"]
+}, 
+{
+  "id": "pure-xs",
+  "brand": "Paco Rabanne",
+  "name": "Pure XS",
+  "description": "Aromático especiado (EDT). Salida de jengibre, tomillo, pomelo, bergamota y acorde verde; corazón de vainilla, acorde licoroso, canela, cuero y manzana; fondo de mirra, azúcar, cedro, maderas, cashmeran y pachulí.",
+  "price": 89.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1K5TeR3pEPQozSS6dROzQaYAJVom12HcL",
+  "tags": ["masculino", "especiado", "dulce", "nocturno"]
+},
+{
+  "id": "1-million-royal",
+  "brand": "Paco Rabanne",
+  "name": "1 Million Royal",
+  "description": "Ámbar amaderado (Parfum, 2023). Salida de cardamomo, mandarina y bergamota; corazón de lavanda, hoja de violeta y salvia; fondo de benjuí, cedro y pachulí.",
+  "price": 110.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1bzKf1OsytBABZPbZdv8PUOhuTDljOUud",
+  "tags": ["masculino", "ámbar", "amaderado", "elegante", "nocturno"]
+}, 
+{
+  "id": "invictus-onyx",
+  "brand": "Paco Rabanne",
+  "name": "Invictus Onyx (Collector Edition)",
+  "description": "Edición de coleccionista del frasco (mismo jugo de Invictus EDT). Fresco acuático con salida de pomelo y acorde marino; corazón de hoja de laurel y jazmín; fondo amaderado con madera de guayaco, musgo de roble, pachulí y ámbar gris.",
+  "price": 99.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/14YoWVWH2xfYLUvPo6psgGWCEUxVcZT5O",
+  "tags": ["masculino", "acuático", "amaderado", "coleccionista", "fresco"]
+}, 
+{
+  "id": "phantom",
+  "brand": "Paco Rabanne",
+  "name": "Phantom",
+  "description": "Aromático amaderado (EDT, 2021). Salida brillante de lavanda y limón; corazón de manzana con matiz ahumado y terroso, apoyado en patchouli; fondo cremoso de vainilla y vetiver con un rastro de lavanda.",
+  "price": 92.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1ZKDdWlW5hKYwgnkVszUXoay6F7WG-Z1t",
+  "tags": ["masculino", "aromático", "vainilla", "moderno"]
+}, 
+{
+  "id": "invictus-legend",
+  "brand": "Paco Rabanne",
+  "name": "Invictus Legend",
+  "description": "Ámbar amaderado (EDP, 2019). Salida de pomelo, notas marinas y sal marina; corazón de hoja de laurel y geranio; fondo de ámbar y madera de guayaco.",
+  "price": 99.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1uJ55-oB76RJm2fhNeaN7DelyrDSnLvt4",
+  "tags": ["masculino", "acuático", "salado", "amaderado", "intenso"]
+}, 
+{
+  "id": "black-xs",
+  "brand": "Paco Rabanne",
+  "name": "Black XS",
+  "description": "Oriental amaderado (EDT). Salida cítrica de limón y salvia; corazón gourmand con praliné, canela y cardamomo; fondo de pachulí, ámbar y palo rosa.",
+  "price": 85.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1xzoOVRGHSsD9hEC2-wnCib3rI--cYF24",
+  "tags": ["masculino", "dulce", "especiado", "nocturno"]
+}, 
+{
+  "id": "invictus-victory",
+  "brand": "Paco Rabanne",
+  "name": "Invictus Victory",
+  "description": "Ámbar oriental (EDP). Salida de limón y pimienta rosa; corazón de lavanda y olíbano; fondo adictivo de vainilla, haba tonka y ámbar.",
+  "price": 105.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1P1-vXOG7RezS9gHucPBNCQSov3Ff6Cjy",
+  "tags": ["masculino", "vainilla", "ámbar", "especiado", "intenso"]
+}, 
+{
+  "id": "1-million-elixir",
+  "brand": "Paco Rabanne",
+  "name": "1 Million Elixir",
+  "description": "Ámbar amaderado (Parfum Intense, 2022). Salida de manzana y davana; corazón de rosa de Damasco, osmanto y cedro; fondo de vainilla absoluta, haba tonka y pachulí.",
+  "price": 119.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1fketEOmrE8ZI6kJcmbtLvK8OnB6YVzeJ",
+  "tags": ["masculino", "vainilla", "dulce", "amaderado", "intenso"]
+}, 
+{
+  "id": "1-million-prive",
+  "brand": "Paco Rabanne",
+  "name": "1 Million Privé",
+  "description": "Ámbar oriental (EDP, 2016). Salida de canela y mandarina roja; corazón de tabaco y mirra; fondo de haba tonka y pachulí. Dulce, cálido y seductor.",
+  "price": 99.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/11kY2yA-tUx1S9nmJVNvco6LRF86lFtfr",
+  "tags": ["masculino", "ámbar", "tabaco", "dulce", "nocturno"]
+}, 
+{
+  "id": "1-million-lucky",
+  "brand": "Paco Rabanne",
+  "name": "1 Million Lucky",
+  "description": "Gourmand amaderado (EDT, 2018). Salida de ciruela, notas ozónicas, toronja y bergamota; corazón de avellana, miel, cedro, jazmín y madera de cachemira; fondo de ámbar madera, pachulí, vetiver y musgo de roble.",
+  "price": 98.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1T57rxb-XJRg0oBpdxCurG1HxzjBXx1Eq",
+  "tags": ["masculino", "gourmand", "dulce", "amaderado"]
+}, 
+{
+  "id": "lady-million-empire",
+  "brand": "Paco Rabanne",
+  "name": "Lady Million Empire",
+  "description": "Chipre floral. Salida de grosella roja, naranja y neroli; corazón de magnolia, mirabel, flor de naranjo y osmanto; fondo de coñac, patchouli blanco y almizcle.",
+  "price": 98.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1LITI3LLO-DAHkITUuTLt1zyRkjSv9Z-J",
+  "tags": ["femenino", "floral", "frutal", "chipre", "elegante"]
+}, 
+{
+  "id": "pure-xs-for-her",
+  "brand": "Paco Rabanne",
+  "name": "Pure XS for Her",
+  "description": "Floral oriental dulce. Protagonismo gourmand de palomitas caramelizadas con vainilla, ylang-ylang y sándalo, sobre un fondo cremoso y sensual.",
+  "price": 96.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1-G11V8zhlAAQOtyLJvfwj9twnWI5M1-G",
+  "tags": ["femenino", "gourmand", "vainilla", "floral", "sensual"]
+}, 
+{
+  "id": "olympea",
+  "brand": "Paco Rabanne",
+  "name": "Olympéa",
+  "description": "Floral oriental con firma de vainilla salada. Salida de mandarina verde, jazmín de agua y flor de jengibre; corazón de vainilla salada; fondo de ámbar gris, madera de cashmere y sándalo.",
+  "price": 98.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1LCxUkyDOfI7M9XvlbS1oePRknhweMhoB",
+  "tags": ["femenino", "vainilla", "floral", "salado", "sensual"]
+}, 
+{
+  "id": "lady-million-prive",
+  "brand": "Paco Rabanne",
+  "name": "Lady Million Privé",
+  "description": "Oriental gourmand. Salida de flor de azahar y notas amaderadas; corazón de vainilla, frambuesa y heliotropo; fondo de cacao, miel y pachulí. Dulce, cálida y seductora.",
+  "price": 99.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1inj4RO0BKHIu2tnMVJVf4UwpOFRnyJ_K",
+  "tags": ["femenino", "dulce", "vainilla", "cacao", "nocturno"]
+}, 
+{
+  "id": "fame",
+  "brand": "Paco Rabanne",
+  "name": "Fame",
+  "description": "Floral cremoso y moderno (EDP). Salida luminosa de mango y bergamota; corazón de jazmín y olíbano; fondo cálido de vainilla y sándalo.",
+  "price": 99.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/157S4nU9u0fHq39hC-HXHdqxZ4piATIQY",
+  "tags": ["femenino", "floral", "vainilla", "jazmín", "moderno"]
+}, 
+{
+  "id": "black-xs-for-her",
+  "brand": "Paco Rabanne",
+  "name": "Black XS for Her",
+  "description": "Floral oriental (EDT). Salida de arándano y pimienta rosa; corazón de rosa negra, violeta y cacao; fondo de pachulí y vainilla.",
+  "price": 89.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1UrR2OnVSKhu9fA1og9kz4nQn-DGaehAQ",
+  "tags": ["femenino", "floral", "dulce", "cacao", "nocturno"]
+}, 
+{
+  "id": "lady-million",
+  "brand": "Paco Rabanne",
+  "name": "Lady Million",
+  "description": "Floral oriental (EDP, 2010). Salida de neroli, limón de Amalfi y frambuesa; corazón de jazmín, flor de azahar de naranjo y gardenia; fondo de miel blanca, ámbar y pachulí.",
+  "price": 98.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1srs7BONrtqQHmWRDKpRaaOZEV4ksZB9u",
+  "tags": ["femenino", "floral", "dulce", "ámbar", "elegante"]
+}, 
+{
+  "id": "lady-million-lucky",
+  "brand": "Paco Rabanne",
+  "name": "Lady Million Lucky",
+  "description": "Floral frutal gourmand (EDP, 2018). Salida de frambuesa; corazón de rosa y jazmín; fondo de miel, madera de cashmere, sándalo y cedro. Dulce y chispeante.",
+  "price": 98.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1SBxrPJXmZ0h_6ZI8HYniKP768YpzJ4GZ",
+  "tags": ["femenino", "floral", "frutal", "dulce", "miel"]
 }
 
 ]
