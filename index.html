@@ -74,18 +74,13 @@
     <!-- Vista de MARCAS (landing) -->
     <section id="brands-view" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-8"></section>
 
-    <!-- Barra de filtros/orden (oculta por defecto, se muestra al entrar a una marca) -->
-    <section id="filters-bar" class="hidden mt-6 mb-6 grid gap-3 sm:grid-cols-4">
-      <input id="q"   class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="Buscar por marca o nombre" />
-      <input id="min" type="number" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="Precio mín." />
-      <input id="max" type="number" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500" placeholder="Precio máx." />
-      <select id="sort" class="p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500">
-        <option value="">Ordenar...</option>
-        <option value="price-asc">Precio: menor a mayor</option>
-        <option value="price-desc">Precio: mayor a menor</option>
-        <option value="name-asc">Nombre: A-Z</option>
-      </select>
+    <!-- Barra de búsqueda -->
+    <section id="filters-bar" class="mb-6">
+      <input id="q"
+            class="w-full p-3 rounded border border-gray-300 focus:ring-2 focus:ring-indigo-500"
+            placeholder="Buscar por marca o nombre" />
     </section>
+
 
     <!-- Estado de carga (skeleton) – oculto por defecto -->
     <div id="skeleton" class="hidden grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-6">

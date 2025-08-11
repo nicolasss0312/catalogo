@@ -11,8 +11,6 @@ const SITE_TITLE = 'Le parfumier';
 const BRAND_COVERS = {
   "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
   "Paco Rabanne": "https://lh3.googleusercontent.com/d/1LtjhfwoLbiYSPPrCFZ2ykEvX7x66bljw",
-  // "Dior": "https://lh3.googleusercontent.com/d/TU_ID",
-  // "Chanel": "./assets/brands/chanel.png",
 };
 
 /* ========= WhatsApp (config) ========= */
@@ -46,10 +44,7 @@ const brandTitle  = document.getElementById('brand-title');
 const container = document.getElementById('perfume-container');
 const skeleton  = document.getElementById('skeleton');
 
-const q    = document.getElementById('q');
-const min  = document.getElementById('min');
-const max  = document.getElementById('max');
-const sort = document.getElementById('sort');
+const q = document.getElementById('q');
 
 const pagination = document.getElementById('pagination');
 const prevBtn    = document.getElementById('prev');
@@ -182,7 +177,6 @@ function renderBrandsDropdown() {
   brandsDDContent.innerHTML = '';
   const brands = getBrandsData();
 
-  // Botón "Todas"
   const allBtn = document.createElement('button');
   allBtn.className = 'px-3 py-2 rounded-full border hover:bg-gray-50';
   allBtn.textContent = 'Todas las marcas';
@@ -222,7 +216,6 @@ function showBrandsView() {
   history.replaceState({}, '', location.pathname);
 }
 
-/* >>> CAMBIO CLAVE: El encabezado de marca solo aparece si hay marca activa */
 function showCatalogView() {
   brandsView?.classList.add('hidden');
   filtersBar?.classList.remove('hidden');
@@ -244,57 +237,39 @@ function goToBrand(brand) {
 }
 
 /* ========= URL Sync ========= */
-function syncURL(term, minP, maxP, sortVal, page) {
+function syncURL(term, page) {
   const params = new URLSearchParams();
   if (activeBrand) params.set('brand', activeBrand);
   if (term) params.set('q', term);
-  if (minP) params.set('min', minP);
-  if (maxP && isFinite(maxP)) params.set('max', maxP);
-  if (sortVal) params.set('sort', sortVal);
   if (page && page > 1) params.set('page', String(page));
   const qmark = params.toString();
   history.replaceState({}, '', `${location.pathname}${qmark ? '?' + qmark : ''}`);
 }
 function loadFromURL() {
   const u = new URLSearchParams(location.search);
-  q   && (q.value   = u.get('q')    || '');
-  min && (min.value = u.get('min')  || '');
-  max && (max.value = u.get('max')  || '');
-  sort&& (sort.value= u.get('sort') || '');
+  q && (q.value = u.get('q') || '');
   activeBrand = u.get('brand') || '';
   currentPage = parseInt(u.get('page') || '1', 10) || 1;
 }
 
-/* ========= Filtros + Orden ========= */
+/* ========= Filtro (solo texto + marca) ========= */
 function applyFilters(triggerPaginationReset = false) {
   const term = (q?.value || '').toLowerCase();
-  const minP = parseFloat(min?.value);
-  const maxP = parseFloat(max?.value);
-  const minF = isNaN(minP) ? 0 : minP;
-  const maxF = isNaN(maxP) ? Infinity : maxP;
 
   if (triggerPaginationReset) currentPage = 1;
 
   let list = allPerfumes.filter(p => {
     const matchBrand = activeBrand ? p.brand === activeBrand : true;
     const matchText  = (p.brand + ' ' + p.name).toLowerCase().includes(term);
-    const matchPrice = p.price >= minF && p.price <= maxF;
-    return matchBrand && matchText && matchPrice;
+    return matchBrand && matchText;
   });
 
-  switch (sort?.value) {
-    case 'price-asc':  list.sort((a,b) => a.price - b.price); break;
-    case 'price-desc': list.sort((a,b) => b.price - a.price); break;
-    case 'name-asc':   list.sort((a,b) => a.name.localeCompare(b.name)); break;
-  }
-
-  if (brandTitle) {
-    const count = list.length;
-    brandTitle.textContent = activeBrand ? `${activeBrand} · ${count}` : '';
+  if (brandTitle && activeBrand) {
+    brandTitle.textContent = `${activeBrand} · ${list.length}`;
   }
 
   renderPerfumes(list);
-  syncURL(term, isFinite(minF) && minF > 0 ? minF : '', isFinite(maxF) && maxF !== Infinity ? maxF : '', sort?.value, currentPage);
+  syncURL(term, currentPage);
 }
 
 /* ========= Paginación ========= */
@@ -325,7 +300,7 @@ function renderPerfumes(list) {
   }
 
   if (pageItems.length === 0) {
-    container.innerHTML = `<p class="text-center text-lg text-gray-500 col-span-full">No se encontraron perfumes con esos filtros.</p>`;
+    container.innerHTML = `<p class="text-center text-lg text-gray-500 col-span-full">No se encontraron perfumes.</p>`;
     return;
   }
 
@@ -376,9 +351,9 @@ function renderPerfumes(list) {
 }
 
 /* ========= Eventos ========= */
-// Inputs (debounce)
+// Input (debounce)
 let debounceId;
-[q, min, max, sort].forEach(el => {
+[q].forEach(el => {
   if (!el) return;
   el.addEventListener('input', () => {
     clearTimeout(debounceId);
@@ -403,7 +378,7 @@ navCatalog && navCatalog.addEventListener('click', (e) => {
   e.preventDefault();
   hideBrandsDD();
   activeBrand = '';
-  showCatalogView();     // << ahora oculta brandHeader cuando no hay marca
+  showCatalogView();
   applyFilters(true);
 });
 navContact && navContact.addEventListener('click', (e) => {
@@ -416,7 +391,7 @@ mNavBrands && mNavBrands.addEventListener('click', () => { closeMobileMenu(); sh
 mNavCatalog && mNavCatalog.addEventListener('click', () => {
   closeMobileMenu();
   activeBrand = '';
-  showCatalogView();     // << idem mobile
+  showCatalogView();
   applyFilters(true);
 });
 mNavContact && mNavContact.addEventListener('click', () => {
@@ -446,7 +421,7 @@ async function loadData() {
   }
   updateCartCount();
   loadFromURL();
-  renderBrands();        // landing
+  renderBrands();
   if (activeBrand) {
     showCatalogView();
     applyFilters();
@@ -457,6 +432,7 @@ async function loadData() {
 
 /* ========= Init ========= */
 document.addEventListener('DOMContentLoaded', loadData);
+
 
 
 
