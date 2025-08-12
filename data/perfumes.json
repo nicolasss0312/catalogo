@@ -338,6 +338,16 @@
   "currency": "EUR",
   "image": "https://lh3.googleusercontent.com/d/1SBxrPJXmZ0h_6ZI8HYniKP768YpzJ4GZ",
   "tags": ["femenino", "floral", "frutal", "dulce", "miel"]
+},
+{
+  "id": "bvlgari-man-terrae-essence",
+  "brand": "Bvlgari",
+  "name": "Bvlgari Man Terrae Essence",
+  "description": "Fragancia amaderada para hombre. Con notas de cidra, vetiver y notas terrosas, evoca la sensación de tierra fértil. Creada en 2021, es un aroma sofisticado y masculino.",
+  "price": 95.00,
+  "currency": "EUR",
+  "image": "https://lh3.googleusercontent.com/d/1SBxrPJXmZ0h_6ZI8HYniKP768YpzJ4GZ",
+  "tags": ["masculino", "amaderado", "terroso", "vetiver", "cítrico"]
 }
 
 ]

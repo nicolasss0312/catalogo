@@ -22,7 +22,7 @@ const WA_CONTACTS = [
 const WA_NUMBERS = WA_CONTACTS.map(c => `${COUNTRY_CODE}${c.number.replace(/\D/g, '')}`);
 
 function waLink(num, product) {
-  const msg = `Hola! Quiero consultar por ${product.brand} - ${product.name}.`;
+  const msg = `Holaa! Quiero consultar por ${product.brand} - ${product.name}.`;
   return `https://wa.me/${num}?text=${encodeURIComponent(msg)}`;
 }
 
