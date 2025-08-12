@@ -350,14 +350,16 @@
   "tags": ["masculino", "amaderado", "terroso", "vetiver", "cítrico"]
 }, 
 {
-  "id": "bvlgari-man-terrae-essence",
+  "id": "bvlgari-man-rain-essence",
   "brand": "Bvlgari",
-  "name": "Bvlgari Man Terrae Essence",
-  "description": "Fragancia amaderada para hombre. Con notas de cidra, vetiver y notas terrosas, evoca la sensación de tierra fértil. Creada en 2021, es un aroma sofisticado y masculino.",
-  "price": 95.00,
-  "currency": "EUR",
-  "image": "https://lh3.googleusercontent.com/d/183YgjXNnrGAxp-caNO92tTzlnIP1Pen8",
-  "tags": ["masculino", "amaderado", "terroso", "vetiver", "cítrico"]
+  "name": "Man Rain Essence",
+  "gender": "men",
+  "type": "EDP",
+  "year": 2023,
+  "description": "Una interpretación fresca y moderna de la lluvia: salida de té verde y naranja, corazón de loto blanco y almizcle, y fondo de guayaco y ámbar.",
+  "image": "https://lh3.googleusercontent.com/d/1R9zThcnKTadMBeEKNHaaHODO6miQgLTh",
+  "tags": ["fresco", "acuático", "amaderado", "almizclado", "masculino"]
 }
+
 
 ]
