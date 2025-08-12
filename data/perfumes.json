@@ -230,9 +230,9 @@
   "tags": ["masculino", "vainilla", "ámbar", "especiado", "intenso"]
 }, 
 {
-  "id": "1-million-elixir",
+  "id": "one-million-elixir",
   "brand": "Paco Rabanne",
-  "name": "1 Million Elixir",
+  "name": "One Million Elixir",
   "description": "Ámbar amaderado (Parfum Intense, 2022). Salida de manzana y davana; corazón de rosa de Damasco, osmanto y cedro; fondo de vainilla absoluta, haba tonka y pachulí.",
   "price": 119.00,
   "currency": "EUR",
@@ -240,9 +240,9 @@
   "tags": ["masculino", "vainilla", "dulce", "amaderado", "intenso"]
 }, 
 {
-  "id": "1-million-prive",
+  "id": "one-million-prive",
   "brand": "Paco Rabanne",
-  "name": "1 Million Privé",
+  "name": "One Million Privé",
   "description": "Ámbar oriental (EDP, 2016). Salida de canela y mandarina roja; corazón de tabaco y mirra; fondo de haba tonka y pachulí. Dulce, cálido y seductor.",
   "price": 99.00,
   "currency": "EUR",
@@ -250,9 +250,9 @@
   "tags": ["masculino", "ámbar", "tabaco", "dulce", "nocturno"]
 }, 
 {
-  "id": "1-million-lucky",
+  "id": "one-million-lucky",
   "brand": "Paco Rabanne",
-  "name": "1 Million Lucky",
+  "name": "One Million Lucky",
   "description": "Gourmand amaderado (EDT, 2018). Salida de ciruela, notas ozónicas, toronja y bergamota; corazón de avellana, miel, cedro, jazmín y madera de cachemira; fondo de ámbar madera, pachulí, vetiver y musgo de roble.",
   "price": 98.00,
   "currency": "EUR",
