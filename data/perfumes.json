@@ -36,7 +36,7 @@
   "description": "Aromático nocturno con lavanda y vainilla, ideal para la noche.",
   "price": 102.00,
   "currency": "EUR",
-  "image": "https://lh3.googleusercontent.com/d/1cW-gwFwVTDaxdDY5a_ckEmeXXn13XOVN",
+  "image": "https://lh3.googleusercontent.com/d/1K1uy8AWmi2hyZoUMmZ7YvnFNEXK8KTwY",
   "tags": ["masculino", "aromático"]
 },
 {
@@ -86,7 +86,7 @@
   "description": "Floral-frutal, con rosa y vainilla. Femenina y sofisticada.",
   "price": 120.00,
   "currency": "EUR",
-  "image": "https://lh3.googleusercontent.com/d/166vsqdDUfNIsMYhvrGvEW8llAL_wuyxR",
+  "image": "https://lh3.googleusercontent.com/d/1o7U5q0bcWzgT6Exh2RrTujD02Z3uGGDt",
   "tags": ["femenino", "floral"]
 },
 {
@@ -170,13 +170,13 @@
   "tags": ["masculino", "especiado", "dulce", "nocturno"]
 },
 {
-  "id": "1-million-royal",
+  "id": "one-million-royal",
   "brand": "Paco Rabanne",
-  "name": "1 Million Royal",
+  "name": "One Million Royal",
   "description": "Ámbar amaderado (Parfum, 2023). Salida de cardamomo, mandarina y bergamota; corazón de lavanda, hoja de violeta y salvia; fondo de benjuí, cedro y pachulí.",
   "price": 110.00,
   "currency": "EUR",
-  "image": "https://lh3.googleusercontent.com/d/1bzKf1OsytBABZPbZdv8PUOhuTDljOUud",
+  "image": "https://lh3.googleusercontent.com/d/1isWlGF1e08u81N8CgQePxgvEpqtOO1MS",
   "tags": ["masculino", "ámbar", "amaderado", "elegante", "nocturno"]
 }, 
 {
@@ -296,7 +296,7 @@
   "description": "Oriental gourmand. Salida de flor de azahar y notas amaderadas; corazón de vainilla, frambuesa y heliotropo; fondo de cacao, miel y pachulí. Dulce, cálida y seductora.",
   "price": 99.00,
   "currency": "EUR",
-  "image": "https://lh3.googleusercontent.com/d/1inj4RO0BKHIu2tnMVJVf4UwpOFRnyJ_K",
+  "image": "https://lh3.googleusercontent.com/d/1wXHuoVrbZq_gy-Glk2KK-QhgxAFq2h7m",
   "tags": ["femenino", "dulce", "vainilla", "cacao", "nocturno"]
 }, 
 {
@@ -316,7 +316,7 @@
   "description": "Floral oriental (EDT). Salida de arándano y pimienta rosa; corazón de rosa negra, violeta y cacao; fondo de pachulí y vainilla.",
   "price": 89.00,
   "currency": "EUR",
-  "image": "https://lh3.googleusercontent.com/d/1UrR2OnVSKhu9fA1og9kz4nQn-DGaehAQ",
+  "image": "https://lh3.googleusercontent.com/d/1oI7IgUyuQjvojSC7jNRo1CBWxCuBkasC",
   "tags": ["femenino", "floral", "dulce", "cacao", "nocturno"]
 }, 
 {
