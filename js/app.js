@@ -11,6 +11,7 @@ const SITE_TITLE = 'Le parfumier';
 const BRAND_COVERS = {
   "Carolina Herrera": "https://lh3.googleusercontent.com/d/1cXlU4dlRp9NFLggmZ2bEy86zVaHdeh2z",
   "Paco Rabanne": "https://lh3.googleusercontent.com/d/1LtjhfwoLbiYSPPrCFZ2ykEvX7x66bljw",
+  "Bvlgari": "https://lh3.googleusercontent.com/d/1SBxrPJXmZ0h_6ZI8HYniKP768YpzJ4GZ",
 };
 
 /* ========= WhatsApp (config) ========= */
